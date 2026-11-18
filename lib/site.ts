@@ -17,8 +17,8 @@ export const ORG = {
   tagline: "Empowering Villages. Enriching Lives. Building a Sustainable Future.",
   philosophy: "Sarvodaya – Welfare of All.",
   email: "gramyasarvodaya@gmail.com",
-  phone: "+91 96790 70943",
-  phoneHref: "tel:+919679070943",
+  phone: "+91 96780 70943",
+  phoneHref: "tel:+919678070943",
   website: "www.gramyasarvodaya.org",
   url: "https://www.gramyasarvodaya.org",
   // As printed on the Foundation's own letterhead banner.

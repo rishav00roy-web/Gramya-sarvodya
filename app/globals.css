@@ -214,16 +214,14 @@ p {
   line-height: 1.4;
 }
 
-/* A short leaf-green tag above a heading, as the reference sets its
-   section names; sentence case, not tracked. */
-.tag {
-  font-weight: 600;
-  font-size: 0.9375rem;
+/* The line under a band's heading that says where its idea comes from. */
+.band__deck {
+  margin-top: -0.25rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-display-stack);
+  font-style: italic;
+  font-size: 1.0625rem;
   color: var(--leaf-deep);
-  margin-bottom: 0.5rem;
-}
-.tag--light {
-  color: var(--sprout);
 }
 
 .lockup {
@@ -668,7 +666,7 @@ p {
 }
 .mnav__sub {
   padding: 0 0 0.75rem 0.75rem;
-  border-left: 2px solid var(--tint-leaf);
+  border-left: 1px solid var(--ink-line);
   margin: 0 0 0.75rem 0.25rem;
 }
 .mnav__sub[hidden] {
@@ -1809,8 +1807,8 @@ a.ways__item:hover {
   max-width: 62ch;
   margin-bottom: 1.5rem;
   padding: 0.75rem 1rem;
-  border-left: 3px solid var(--earth-soft);
-  border-radius: 0 10px 10px 0;
+  border: 1px solid var(--ink-line);
+  border-radius: 10px;
   background: var(--tint-earth);
   font-size: 0.9375rem;
   color: var(--ink);

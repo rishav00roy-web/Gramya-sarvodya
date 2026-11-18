@@ -125,7 +125,6 @@ export default function Home() {
         <div className="shell">
           <div className="section__head">
             <div>
-              <p className="tag">What we do</p>
               <h2 className="section__title" id="programmes-title">
                 Our programmes
               </h2>
@@ -181,10 +180,10 @@ export default function Home() {
             />
           </div>
           <div className="band__copy">
-            <p className="tag">Inspired by Gandhian ideology</p>
             <h2 className="band__title" id="name-title">
               Our philosophy
             </h2>
+            <p className="band__deck">Inspired by Gandhian ideology</p>
             <p className="band__intro">
               Our name represents two powerful ideas:
             </p>
@@ -209,7 +208,6 @@ export default function Home() {
       <section className="section shell" aria-labelledby="approach-title">
         <div className="section__head">
           <div>
-            <p className="tag">How we work</p>
             <h2 className="section__title" id="approach-title">
               Our development approach
             </h2>
@@ -234,7 +232,6 @@ export default function Home() {
         <div className="shell">
           <div className="section__head">
             <div>
-              <p className="tag">Get involved</p>
               <h2 className="section__title" id="join-title">
                 Join our movement
               </h2>
