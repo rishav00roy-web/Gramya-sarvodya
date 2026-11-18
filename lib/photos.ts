@@ -41,6 +41,15 @@ export const HERO_PHOTO: Photo = {
   page: unsplash("photos/ROuCX01G3Pg"),
 };
 
+export const PHILOSOPHY_PHOTO: Photo = {
+  id: "photo-1601689892697-b64daa00ff6d",
+  alt: "Village women and men sitting and standing together outside a house with blue doors, listening to one another.",
+  by: "Adi Lica",
+  user: "shootwithadi",
+  page: unsplash("photos/vtw8EBE1jAg"),
+  crop: "center",
+};
+
 export const PROGRAMME_PHOTOS: Record<string, Photo> = {
   "sustainable-agriculture": {
     id: "photo-1530507629858-e4977d30e9e0",
@@ -131,5 +140,6 @@ export const PROGRAMME_PHOTOS: Record<string, Photo> = {
 
 export const ALL_PHOTOS: { use: string; photo: Photo }[] = [
   { use: "Home page", photo: HERO_PHOTO },
+  { use: "Our philosophy", photo: PHILOSOPHY_PHOTO },
   ...Object.entries(PROGRAMME_PHOTOS).map(([use, photo]) => ({ use, photo })),
 ];

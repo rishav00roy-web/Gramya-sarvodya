@@ -528,9 +528,6 @@ p {
     overflow-y: auto;
     opacity: 0;
     visibility: hidden;
-    transition:
-      opacity 0.2s var(--ease),
-      visibility 0s linear 0.2s;
   }
   .bar[data-open="true"] .bar__links {
     opacity: 1;
@@ -703,7 +700,11 @@ p {
   .strip__list li {
     flex: 0 0 auto;
     scroll-snap-align: start;
-    width: 92px;
+    width: 100px;
+  }
+  .strip__label {
+    max-width: none;
+    font-size: 0.75rem;
   }
 }
 
@@ -2036,5 +2037,108 @@ a.contact__way:hover {
   ::before,
   ::after {
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- phones ---------- */
+@media (max-width: 480px) {
+  :root {
+    --radius: 14px;
+  }
+  .hero__card,
+  .phero__card,
+  .quote__panel,
+  .band--card .band__inner,
+  .band--panel > [data-ground],
+  .closing__inner {
+    padding: 1.25rem;
+    border-radius: 20px;
+  }
+  .phero__card {
+    padding-block: 1.5rem 1.75rem;
+  }
+  .hero__title {
+    font-size: clamp(2.6rem, 14vw, 3.4rem);
+  }
+  .hero__lede,
+  .phero__lede {
+    font-size: 1rem;
+  }
+  .phero__title {
+    font-size: clamp(1.9rem, 9.5vw, 2.6rem);
+    max-width: none;
+    overflow-wrap: anywhere;
+  }
+  .lockup__script {
+    font-size: clamp(1.4rem, 7vw, 1.9rem);
+  }
+  .phero__aside {
+    display: none;
+  }
+  .section__title,
+  .band__title,
+  .form__title {
+    font-size: clamp(1.75rem, 8.5vw, 2.3rem);
+  }
+  .quote__body {
+    padding-left: 1.75rem;
+    font-size: 1.2rem;
+  }
+  .quote__by,
+  .quote .textlink {
+    padding-left: 0;
+    margin-left: 1.75rem;
+  }
+  .quote__body::before {
+    font-size: 2.4em;
+  }
+  .facts {
+    gap: 0.625rem;
+  }
+  .facts > div {
+    padding: 1rem;
+  }
+  .facts dd {
+    font-size: 2.4rem;
+  }
+  .facts dt {
+    font-size: 0.875rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+  .terms dt {
+    font-size: 1.6rem;
+  }
+  .closing__title {
+    font-size: clamp(1.75rem, 8.5vw, 2.3rem);
+  }
+  .closing__text {
+    font-size: 1rem;
+  }
+  .closing__ways {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .closing__way {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    font-size: 0.875rem;
+  }
+  .closing__form {
+    padding: 1rem;
+    margin-inline: -0.25rem;
+  }
+  .form__foot .button {
+    width: 100%;
+    justify-content: center;
+  }
+  .contact__ways a,
+  .contact__ways p,
+  .contact__ways span {
+    overflow-wrap: anywhere;
+    font-size: 0.9375rem;
+  }
+  .footer__name {
+    font-size: 1.9rem;
   }
 }

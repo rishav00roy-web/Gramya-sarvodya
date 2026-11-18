@@ -4,7 +4,7 @@ import FocusStrip from "@/components/FocusStrip";
 import Icon from "@/components/Icon";
 import Photo from "@/components/Photo";
 import ProgrammeCarousel from "@/components/ProgrammeCarousel";
-import { HERO_PHOTO } from "@/lib/photos";
+import { HERO_PHOTO, PHILOSOPHY_PHOTO } from "@/lib/photos";
 import {
   ABOUT,
   APPROACH,
@@ -156,17 +156,15 @@ export default function Home() {
         </dl>
       </section>
 
-      {/* The name explained, on a white card beside the village house. */}
+      {/* The name explained, on a white card beside a village gathering. */}
       <section className="band band--card shell" aria-labelledby="name-title">
         <div className="band__inner">
           <div className="band__photo">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={asset("/media/bamboo-river.webp")}
-              alt="Bamboo leaning over a river valley at sunrise."
-              width={262}
-              height={900}
-              loading="lazy"
+            <Photo
+              photo={PHILOSOPHY_PHOTO}
+              w={480}
+              h={800}
+              sizes="(max-width: 760px) 90vw, 400px"
             />
           </div>
           <div className="band__copy">
