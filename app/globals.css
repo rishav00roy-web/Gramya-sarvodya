@@ -695,6 +695,10 @@ p {
     scroll-snap-type: x mandatory;
     gap: 1.25rem;
     padding-bottom: 0.75rem;
+    scrollbar-width: none;
+  }
+  .strip__list::-webkit-scrollbar {
+    display: none;
   }
   .strip__list li {
     flex: 0 0 auto;
@@ -961,6 +965,8 @@ p {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
   overflow: hidden;
+  align-self: start;
+  max-height: 4lh;
 }
 .pcard__more {
   font-weight: 600;

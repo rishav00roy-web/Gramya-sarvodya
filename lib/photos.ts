@@ -13,13 +13,17 @@ export type Photo = {
   user: string;
   /** The photo's page on Unsplash. */
   page: string;
+  /** Where the crop keeps the picture when the shape cuts it. */
+  crop?: "center" | "top" | "bottom" | "faces";
 };
 
 const unsplash = (path: string) => `https://unsplash.com/${path}`;
 
 /** A cropped, sized URL for a photo. */
 export function photoSrc(p: Photo, w: number, h: number) {
-  return `https://images.unsplash.com/${p.id}?auto=format&fit=crop&crop=entropy&q=70&w=${w}&h=${h}`;
+  return `https://images.unsplash.com/${p.id}?auto=format&fit=crop${
+    p.crop === "center" ? "" : `&crop=${p.crop ?? "faces,entropy"}`
+  }&q=70&w=${w}&h=${h}`;
 }
 
 /** A srcset of the same crop at several widths. */
@@ -44,6 +48,7 @@ export const PROGRAMME_PHOTOS: Record<string, Photo> = {
     by: "Nandhu Kumar",
     user: "nandhukumarndd",
     page: unsplash("photos/5NGTf4oD8RA"),
+    crop: "center",
   },
   "farmer-producer-company": {
     id: "photo-1609252509229-364936a1d1a2",

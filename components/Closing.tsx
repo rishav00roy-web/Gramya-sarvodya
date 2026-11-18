@@ -12,8 +12,8 @@ export default function Closing({
   text?: string;
 }) {
   return (
-    <section className="closing" aria-labelledby="closing-title">
-      <div className="shell closing__inner">
+    <section className="closing shell" aria-labelledby="closing-title">
+      <div className="closing__inner">
         <div className="closing__words">
           <h2 className="closing__title caps" id="closing-title">
             <span>{title[0]}</span>
