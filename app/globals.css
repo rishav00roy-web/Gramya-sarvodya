@@ -2455,6 +2455,32 @@ a.contact__way:hover {
 .aform .button {
   justify-self: start;
 }
+.button--google {
+  justify-self: stretch;
+  gap: 0.65rem;
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--field-line);
+}
+.button--google:hover {
+  background: var(--paper-warm);
+}
+.aform .button--google {
+  justify-self: stretch;
+}
+.aform__or {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+.aform__or::before,
+.aform__or::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--ink-line);
+}
 .aform__code {
   font-size: 1.5rem;
   font-variant-numeric: tabular-nums;

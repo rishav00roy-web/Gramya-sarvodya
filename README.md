@@ -43,6 +43,7 @@ Environment variables, all set in Vercel (Production):
 | `AUTH_BREVO_KEY` | Brevo API key (free plan, 300 emails a day). Sends from one verified address, so no domain is needed. Used first if set. |
 | `AUTH_RESEND_KEY` | Resend API key (free plan). Sends to anyone only from a domain verified in Resend. |
 | `AUTH_EMAIL_FROM` | Sender address, e.g. the Foundation's Gmail verified as a Brevo sender. Required with Brevo. |
+| `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google OAuth client for "Continue with Google". The button appears only when both are set. Redirect URI: `https://<deployment>.convex.site/api/auth/callback/google`. |
 | `SITE_URL` | Optional; defaults to https://gramya-three.vercel.app. |
 
 `npm run build` (`scripts/build.mjs`) creates the Convex sign-in keys on the
