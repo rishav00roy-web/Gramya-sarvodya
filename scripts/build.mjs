@@ -45,15 +45,15 @@ if (!get("JWT_PRIVATE_KEY") || !get("JWKS")) {
 // 2. Settings copied from Vercel to Convex, so they live in one place.
 const site = process.env.SITE_URL || "https://gramya-three.vercel.app";
 if (get("SITE_URL") !== site) set("SITE_URL", site);
-for (const name of ["AUTH_RESEND_KEY", "AUTH_EMAIL_FROM"]) {
+for (const name of ["AUTH_BREVO_KEY", "AUTH_RESEND_KEY", "AUTH_EMAIL_FROM"]) {
   const value = process.env[name];
   if (value && get(name) !== value) {
     set(name, value);
     console.log(`Convex: ${name} updated.`);
   }
 }
-if (!process.env.AUTH_RESEND_KEY && !get("AUTH_RESEND_KEY")) {
-  console.warn("Convex: AUTH_RESEND_KEY is not set, so sign-in codes cannot be emailed yet.");
+if (!process.env.AUTH_BREVO_KEY && !process.env.AUTH_RESEND_KEY && !get("AUTH_BREVO_KEY") && !get("AUTH_RESEND_KEY")) {
+  console.warn("Convex: no AUTH_BREVO_KEY or AUTH_RESEND_KEY is set, so sign-in codes cannot be emailed yet.");
 }
 
 // 3. Push the functions and build the site against them.

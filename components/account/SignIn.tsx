@@ -16,7 +16,7 @@ export default function SignIn() {
     setBusy(true);
     setNote("");
     try {
-      await signIn("resend-otp", { email: address });
+      await signIn("email-otp", { email: address });
       setStep("code");
       setNote(`We sent a six-digit code to ${address}. It works for 15 minutes.`);
     } catch {
@@ -48,7 +48,7 @@ export default function SignIn() {
     setBusy(true);
     setNote("");
     try {
-      await signIn("resend-otp", { email, code });
+      await signIn("email-otp", { email, code });
     } catch {
       setNote("That code did not work. Check it, or send a new one.");
       setBusy(false);

@@ -32,7 +32,7 @@ Pushing to `main` deploys to GitHub Pages through `.github/workflows/pages.yml`.
 
 `/account/` lets visitors sign in with a six-digit code emailed to them and
 keep a profile. It runs in the browser against [Convex](https://convex.dev)
-(functions in `convex/`, Convex Auth with a Resend email provider); the rest
+(functions in `convex/`, Convex Auth with an email code sent through Brevo or Resend, both on free plans); the rest
 of the site stays a static export.
 
 Environment variables, all set in Vercel (Production):
@@ -40,10 +40,11 @@ Environment variables, all set in Vercel (Production):
 | Name | What it is |
 | --- | --- |
 | `CONVEX_DEPLOY_KEY` | Production deploy key from the Convex dashboard. Without it the site builds without sign-in. |
-| `AUTH_RESEND_KEY` | Resend API key used to email the codes. |
-| `AUTH_EMAIL_FROM` | Optional sender, e.g. `Gramya Sarvodaya Foundation <no-reply@your-domain>` on a domain verified in Resend. |
+| `AUTH_BREVO_KEY` | Brevo API key (free plan, 300 emails a day). Sends from one verified address, so no domain is needed. Used first if set. |
+| `AUTH_RESEND_KEY` | Resend API key (free plan). Sends to anyone only from a domain verified in Resend. |
+| `AUTH_EMAIL_FROM` | Sender address, e.g. the Foundation's Gmail verified as a Brevo sender. Required with Brevo. |
 | `SITE_URL` | Optional; defaults to https://gramya-three.vercel.app. |
 
 `npm run build` (`scripts/build.mjs`) creates the Convex sign-in keys on the
-first deploy, copies the Resend settings to Convex, pushes `convex/` and
+first deploy, copies the email settings to Convex, pushes `convex/` and
 builds the site with `NEXT_PUBLIC_CONVEX_URL` set.

@@ -29,7 +29,7 @@ export const LEGAL: LegalDoc[] = [
         heading: "Member accounts",
         body: [
           "You can choose to create a member account. If you do, we store your email address, the date you joined, and any profile details you add (such as your name, phone number, village or district and how you would like to take part). This is kept with Convex, the database service that runs the account area, and may be held on servers outside India.",
-          "To sign in, we send a one-time code to your email through Resend, an email delivery service. The code works for 15 minutes. While you are signed in, a sign-in token is kept in your browser's local storage; signing out removes it.",
+          "To sign in, we send a one-time code to your email through an email delivery service (Brevo or Resend). The code works for 15 minutes. While you are signed in, a sign-in token is kept in your browser's local storage; signing out removes it.",
           `You can change your profile at any time on the My Account page. To have your account deleted, write to ${contact}.`,
         ],
       },
