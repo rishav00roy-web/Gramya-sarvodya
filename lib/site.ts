@@ -26,13 +26,51 @@ export const ORG = {
   year: 2026,
 };
 
-export const NAV = [
-  { href: "/about", label: "About Us" },
-  { href: "/programmes", label: "Our Programmes" },
+export type NavItem = { href: string; label: string; children?: { href: string; label: string }[] };
+
+export const NAV: NavItem[] = [
+  {
+    href: "/about",
+    label: "About Us",
+    children: [
+      { href: "/about", label: "Who we are" },
+      { href: "/about#philosophy", label: "Our philosophy" },
+      { href: "/about#gandhian-ideology", label: "Gandhian ideology" },
+      { href: "/about#vision-mission", label: "Vision & mission" },
+    ],
+  },
+  {
+    href: "/programmes",
+    label: "Our Programmes",
+    children: [
+      { href: "/programmes", label: "All 12 programmes" },
+      { href: "/programmes/sustainable-agriculture", label: "Natural farming" },
+      { href: "/programmes/farmer-producer-company", label: "Farmer Producer Companies" },
+      { href: "/programmes/gramya-udyog", label: "Gramya Udyog" },
+      { href: "/programmes/womens-empowerment", label: "Women's empowerment" },
+      { href: "/programmes/environment", label: "Environment & energy" },
+    ],
+  },
   { href: "/approach", label: "Our Approach" },
   { href: "/impact", label: "Our Impact" },
-  { href: "/get-involved", label: "Get Involved" },
-  { href: "/resources", label: "Resources" },
+  {
+    href: "/get-involved",
+    label: "Get Involved",
+    children: [
+      { href: "/get-involved#volunteer", label: "Volunteer" },
+      { href: "/get-involved#partnerships", label: "Partner with us" },
+      { href: "/get-involved#entrepreneurs", label: "Support rural entrepreneurs" },
+    ],
+  },
+  {
+    href: "/resources",
+    label: "Resources",
+    children: [
+      { href: "/resources#news", label: "News" },
+      { href: "/resources#gallery", label: "Gallery" },
+      { href: "/resources#publications", label: "Publications" },
+    ],
+  },
   { href: "/contact", label: "Contact" },
 ];
 

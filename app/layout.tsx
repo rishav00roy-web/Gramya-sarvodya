@@ -1,32 +1,32 @@
 import type { Metadata, Viewport } from "next";
-import { Imbue, Pinyon_Script, Archivo } from "next/font/google";
+import { Noto_Serif, Noto_Sans, Pinyon_Script } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { ORG, INTRO } from "@/lib/site";
 import "./globals.css";
 
-// Condensed Didone capitals for display, drawn for their size by the
-// optical-size axis: a 160px headline and a 20px link both look right.
-const display = Imbue({
+// A book serif for headings, set in sentence case: the voice of an
+// institution that publishes, rather than a poster.
+const display = Noto_Serif({
   subsets: ["latin"],
-  axes: ["opsz"],
+  weight: ["400", "600"],
   variable: "--font-display",
   display: "swap",
 });
 
-// For the one word on a screen that should look written by hand.
+// Its sans partner for reading, labels and controls.
+const ui = Noto_Sans({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  variable: "--font-ui",
+  display: "swap",
+});
+
+// The one twist of hand: a script for a single phrase on a screen.
 const script = Pinyon_Script({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-script",
-  display: "swap",
-});
-
-// Body at normal width, labels at the wide end of the same variable file.
-const ui = Archivo({
-  subsets: ["latin"],
-  axes: ["wdth"],
-  variable: "--font-ui",
   display: "swap",
 });
 

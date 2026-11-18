@@ -21,11 +21,11 @@ export default function Closing({
         <p className="closing__text">{text}</p>
         <div className="closing__ways">
           <a className="closing__way" href={`mailto:${ORG.email}`} data-kubai-trigger>
-            <Icon name="mail" />
+            <Icon name="mail" tone="sprout" />
             <span>{ORG.email}</span>
           </a>
           <a className="closing__way" href={ORG.phoneHref} data-kubai-trigger>
-            <Icon name="phone" />
+            <Icon name="phone" tone="sprout" />
             <span>{ORG.phone}</span>
           </a>
         </div>

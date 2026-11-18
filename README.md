@@ -2,7 +2,7 @@
 
 *Strong Villages, Prosperous Nation*
 
-The website of Gramya Sarvodaya Foundation: a static Next.js site (App Router, TypeScript, plain CSS) built on the design system of the Roy & Co site, recoloured in forest green, leaf green, white and earthy brown, with [Kubai Icons](https://icons.kubai.design/) in their soft, single-colour style.
+The website of Gramya Sarvodaya Foundation: a static Next.js site (App Router, TypeScript, plain CSS) laid out like a large foundation site (section menus, a creed hero, round programme badges, a programme carousel), in forest green, leaf green, warm white and earthy brown, with [Kubai Icons](https://icons.kubai.design/) in their soft, single-colour style.
 
 ## Pages
 
