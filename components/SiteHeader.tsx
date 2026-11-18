@@ -83,20 +83,35 @@ export default function SiteHeader() {
       // Back to where the reader was, unless a menu link took them
       // somewhere else: a new page starts at its top, a new #section at it.
       const hash = window.location.hash;
-      const target = hash && hash !== startHash ? document.getElementById(hash.slice(1)) : null;
+      const target =
+        hash && hash !== startHash
+          ? document.getElementById(hash.slice(1))
+          : null;
       if (target) target.scrollIntoView({ behavior: "instant" });
-      else window.scrollTo({ top: pathRef.current === startPath ? y : 0, behavior: "instant" });
-      if (pathRef.current === startPath && !target) toggle?.focus({ preventScroll: true });
+      else
+        window.scrollTo({
+          top: pathRef.current === startPath ? y : 0,
+          behavior: "instant",
+        });
+      if (pathRef.current === startPath && !target)
+        toggle?.focus({ preventScroll: true });
     };
   }, [open]);
 
   const close = () => setOpen(false);
 
   const current = (href: string) =>
-    pathname === href || pathname === `${href}/` || pathname.startsWith(`${href}/`);
+    pathname === href ||
+    pathname === `${href}/` ||
+    pathname.startsWith(`${href}/`);
 
   return (
-    <header className="bar" data-open={open} data-ready={ready} data-scrolled={scrolled}>
+    <header
+      className="bar"
+      data-open={open}
+      data-ready={ready}
+      data-scrolled={scrolled}
+    >
       <div className="bar__inner">
         <Link className="bar__brand" href="/" aria-label={`${ORG.name}, home`}>
           <span className="bar__seal">
@@ -104,7 +119,13 @@ export default function SiteHeader() {
               <Badge id="bar-seal" text={`${ORG.name}   ${ORG.motto}   `} />
             </span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="bar__emblem" src={asset("/media/gsf-seal.webp")} alt="" width={64} height={64} />
+            <img
+              className="bar__emblem"
+              src={asset("/media/gsf-seal.webp")}
+              alt=""
+              width={64}
+              height={64}
+            />
           </span>
           <span className="bar__name">
             <span className="bar__name-1">Gramya Sarvodaya</span>
@@ -115,14 +136,21 @@ export default function SiteHeader() {
         <nav className="bar__nav" aria-label="Primary">
           <ul className="bar__links" id="site-menu">
             {NAV.map((item) => (
-              <li key={item.href} className={item.children ? "bar__item bar__item--parent" : "bar__item"}>
+              <li
+                key={item.href}
+                className={
+                  item.children ? "bar__item bar__item--parent" : "bar__item"
+                }
+              >
                 <Link
                   className="bar__link"
                   href={item.href}
                   aria-current={current(item.href) ? "page" : undefined}
                 >
                   {item.label}
-                  {item.children && <span className="bar__caret" aria-hidden="true" />}
+                  {item.children && (
+                    <span className="bar__caret" aria-hidden="true" />
+                  )}
                 </Link>
                 {item.children && (
                   <ul className="bar__panel" aria-label={item.label}>
@@ -155,83 +183,110 @@ export default function SiteHeader() {
         </nav>
       </div>
 
-      {ready && (
-        <div
-          className="mnav"
-          id="mobile-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Menu"
-          hidden={!open}
-        >
-          <div className="mnav__top">
-            <Link className="bar__brand" href="/" onClick={close} aria-label={`${ORG.name}, home`}>
-              <span className="bar__seal">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="bar__emblem" src={asset("/media/gsf-seal.webp")} alt="" width={64} height={64} />
-              </span>
-              <span className="bar__name">
-                <span className="bar__name-1">Gramya Sarvodaya</span>
-                <span className="bar__name-2">Foundation</span>
-              </span>
-            </Link>
-            <button ref={closeRef} type="button" className="mnav__close" onClick={close} aria-label="Close menu">
-              <span aria-hidden="true" />
-            </button>
-          </div>
-
-          <ul className="mnav__list">
-            {NAV.map((item) => {
-              const isOpen = section === item.href;
-              return (
-                <li key={item.href} className="mnav__item">
-                  <div className="mnav__row">
-                    <Link
-                      className="mnav__link"
-                      href={item.href}
-                      onClick={close}
-                      aria-current={current(item.href) ? "page" : undefined}
-                    >
-                      {item.label}
-                    </Link>
-                    {item.children && (
-                      <button
-                        type="button"
-                        className="mnav__fold"
-                        aria-expanded={isOpen}
-                        aria-controls={`mnav-${item.href.slice(1)}`}
-                        aria-label={`${isOpen ? "Hide" : "Show"} ${item.label} pages`}
-                        onClick={() => setSection(isOpen ? null : item.href)}
-                      >
-                        <span aria-hidden="true" />
-                      </button>
-                    )}
-                  </div>
-                  {item.children && (
-                    <ul className="mnav__sub" id={`mnav-${item.href.slice(1)}`} hidden={!isOpen}>
-                      {item.children.map((child) => (
-                        <li key={child.href}>
-                          <Link className="mnav__sublink" href={child.href} onClick={close}>
-                            {child.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-
-          <div className="mnav__foot">
-            <Link className="button mnav__join" href="/get-involved" onClick={close}>
-              Join us
-            </Link>
-            <a href={`mailto:${ORG.email}`}>{ORG.email}</a>
-            <a href={ORG.phoneHref}>{ORG.phone}</a>
-          </div>
+      <div
+        className="mnav"
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        hidden={!open}
+      >
+        <div className="mnav__top">
+          <Link
+            className="bar__brand"
+            href="/"
+            onClick={close}
+            aria-label={`${ORG.name}, home`}
+          >
+            <span className="bar__seal">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="bar__emblem"
+                src={asset("/media/gsf-seal.webp")}
+                alt=""
+                width={64}
+                height={64}
+              />
+            </span>
+            <span className="bar__name">
+              <span className="bar__name-1">Gramya Sarvodaya</span>
+              <span className="bar__name-2">Foundation</span>
+            </span>
+          </Link>
+          <button
+            ref={closeRef}
+            type="button"
+            className="mnav__close"
+            onClick={close}
+            aria-label="Close menu"
+          >
+            <span aria-hidden="true" />
+          </button>
         </div>
-      )}
+
+        <ul className="mnav__list">
+          {NAV.map((item) => {
+            const isOpen = section === item.href;
+            return (
+              <li key={item.href} className="mnav__item">
+                <div className="mnav__row">
+                  <Link
+                    className="mnav__link"
+                    href={item.href}
+                    onClick={close}
+                    aria-current={current(item.href) ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                  {item.children && (
+                    <button
+                      type="button"
+                      className="mnav__fold"
+                      aria-expanded={isOpen}
+                      aria-controls={`mnav-${item.href.slice(1)}`}
+                      aria-label={`${isOpen ? "Hide" : "Show"} ${item.label} pages`}
+                      onClick={() => setSection(isOpen ? null : item.href)}
+                    >
+                      <span aria-hidden="true" />
+                    </button>
+                  )}
+                </div>
+                {item.children && (
+                  <ul
+                    className="mnav__sub"
+                    id={`mnav-${item.href.slice(1)}`}
+                    hidden={!isOpen}
+                  >
+                    {item.children.map((child) => (
+                      <li key={child.href}>
+                        <Link
+                          className="mnav__sublink"
+                          href={child.href}
+                          onClick={close}
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="mnav__foot">
+          <Link
+            className="button mnav__join"
+            href="/get-involved"
+            onClick={close}
+          >
+            Join us
+          </Link>
+          <a href={`mailto:${ORG.email}`}>{ORG.email}</a>
+          <a href={ORG.phoneHref}>{ORG.phone}</a>
+        </div>
+      </div>
     </header>
   );
 }
