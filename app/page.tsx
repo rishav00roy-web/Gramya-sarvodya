@@ -41,9 +41,9 @@ const organizationSchema = {
 /* What the Foundation's own plan contains, counted. These are the sizes of
    its programme, not claims of reach: there are no impact figures yet. */
 const FACTS = [
-  { value: String(PROGRAMMES.length), label: "Development programmes" },
-  { value: String(MISSION.length), label: "Mission commitments" },
-  { value: String(PRINCIPLES.length), label: "Gandhian principles" },
+  { value: String(PROGRAMMES.length), label: "Programme areas in our plan" },
+  { value: String(MISSION.length), label: "Goals in our mission" },
+  { value: String(PRINCIPLES.length), label: "Gandhian principles we follow" },
   { value: String(APPROACH.length), label: "Steps in our approach" },
 ];
 
@@ -118,7 +118,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section--tint" aria-labelledby="programmes-title">
+      <section
+        className="section section--tint"
+        aria-labelledby="programmes-title"
+      >
         <div className="shell">
           <div className="section__head">
             <div>
@@ -146,14 +149,24 @@ export default function Home() {
             Our vision and mission
           </Link>
         </div>
-        <dl className="facts">
-          {FACTS.map((f, i) => (
-            <div key={f.label} data-tone={["leaf", "earth", "forest", "sprout"][i % 4]}>
-              <dt>{f.label}</dt>
-              <dd>{f.value}</dd>
-            </div>
-          ))}
-        </dl>
+        <div className="creed__facts">
+          <dl className="facts">
+            {FACTS.map((f, i) => (
+              <div
+                key={f.label}
+                data-tone={["leaf", "earth", "forest", "sprout"][i % 4]}
+              >
+                <dt>{f.label}</dt>
+                <dd>{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="facts__note">
+            These numbers count what our plan sets out. They are not results.
+            Project figures will be published on the Our Impact page once they
+            are verified.
+          </p>
+        </div>
       </section>
 
       {/* The name explained, on a white card beside a village gathering. */}
@@ -172,7 +185,9 @@ export default function Home() {
             <h2 className="band__title" id="name-title">
               Our philosophy
             </h2>
-            <p className="band__intro">Our name represents two powerful ideas:</p>
+            <p className="band__intro">
+              Our name represents two powerful ideas:
+            </p>
             <dl className="terms">
               {ABOUT.name.map((t) => (
                 <div key={t.term}>
@@ -231,7 +246,11 @@ export default function Home() {
           <ul className="ways">
             {JOIN.map((w) => (
               <li key={w.id}>
-                <Link className="ways__item" href={`/get-involved#${w.id}`} data-kubai-trigger>
+                <Link
+                  className="ways__item"
+                  href={`/get-involved#${w.id}`}
+                  data-kubai-trigger
+                >
                   <Icon name={w.icon} size={34} />
                   <span className="ways__title">{w.title}</span>
                   <span className="ways__text">{w.text}</span>

@@ -108,13 +108,13 @@ export const LEGAL: LegalDoc[] = [
       {
         heading: "Our aim",
         body: [
-          "We want everyone to be able to read and use this website. It is built to follow the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA: text has strong contrast, every page works with a keyboard, images carry descriptions, and motion stops when your device asks for reduced motion.",
+          "We want everyone to be able to read and use this website. It is designed with the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA in mind: strong text contrast, keyboard access to every page, descriptions on images, and less motion when your device asks for it. It has not yet been independently audited.",
         ],
       },
       {
         heading: "Tell us about a barrier",
         body: [
-          `If any part of this website is hard to use, please tell us at ${contact}, and we will fix it or send you the information another way.`,
+          `If any part of this website is hard to use, please tell us at ${contact}, and we will try to fix it or send you the information another way.`,
         ],
       },
     ],
@@ -128,7 +128,7 @@ export const LEGAL: LegalDoc[] = [
         heading: "How to raise a concern",
         body: [
           `Feedback and grievances about the Foundation's work or this website are welcome. Write to ${ORG.email} with "Grievance" in the subject line, or call ${ORG.phone}.`,
-          "Please include your name, a way to reach you, and what happened. We will acknowledge your message and tell you how it will be looked into.",
+          "Please include your name, a way to reach you, and what happened. We aim to acknowledge every message and let you know how it will be looked into.",
         ],
       },
     ],

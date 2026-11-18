@@ -50,7 +50,7 @@ export default function SiteFooter() {
           </div>
 
           <div>
-            <p className="footer__head label">Registered office</p>
+            <p className="footer__head label">Office address</p>
             <address className="footer__address">
               {ORG.office.map((line) => (
                 <span key={line}>{line}</span>
@@ -72,6 +72,11 @@ export default function SiteFooter() {
 
         <div className="footer__base">
           <p className="footer__motto script">{ORG.motto}.</p>
+          <p className="footer__copy">
+            Photographs of rural India on this site are illustrative, from{" "}
+            <Link href="/credits">Unsplash</Link>, and do not show Foundation
+            projects.
+          </p>
           <p className="footer__copy">
             © {ORG.year} {ORG.name}. All Rights Reserved.
           </p>

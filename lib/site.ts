@@ -102,7 +102,7 @@ export const FOCUS_AREAS: { label: string; slug: string }[] = [
   { label: "Agro Tourism", slug: "agro-tourism" },
   { label: "Green Education", slug: "green-education" },
   { label: "Gramya Udyog – Rural Industries", slug: "gramya-udyog" },
-  { label: "Natural Wellness & Treatment Initiatives", slug: "wellness" },
+  { label: "Natural Wellness Initiatives", slug: "wellness" },
   { label: "Community Financial Inclusion", slug: "financial-inclusion" },
   { label: "Women's & Youth Empowerment", slug: "womens-empowerment" },
   { label: "Environmental Conservation", slug: "environment" },
@@ -285,7 +285,7 @@ export const PROGRAMMES: Programme[] = [
   {
     slug: "farmer-producer-company",
     letter: "B",
-    title: "Farmer Producer Company (FPC)",
+    title: "Farmer Producer Company (FPC) Support",
     short: "Farmer Producer Companies",
     icon: "fpc",
     intro: [
@@ -455,7 +455,7 @@ export const PROGRAMMES: Programme[] = [
   {
     slug: "wellness",
     letter: "G",
-    title: "Natural Treatment & Wellness Centre",
+    title: "Natural Wellness Initiative",
     short: "Natural Wellness",
     icon: "wellness",
     intro: [
@@ -626,6 +626,10 @@ export const PROGRAMMES: Programme[] = [
 export function getProgramme(slug: string) {
   return PROGRAMMES.find((p) => p.slug === slug);
 }
+
+/** Said once on the programmes pages: they describe intended work. */
+export const PROGRAMME_STATUS =
+  "These pages set out the work the Foundation intends to do in each area. Projects will be listed on the Our Impact page as they begin, with what they have actually done.";
 
 export const LEGAL_PENDING =
   "Official registration details, governing-body information, statutory registrations, and applicable tax exemption details will be added after verification from the Foundation's official documents.";

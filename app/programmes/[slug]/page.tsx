@@ -6,7 +6,7 @@ import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Photo from "@/components/Photo";
 import { PROGRAMME_PHOTOS } from "@/lib/photos";
-import { PROGRAMMES, getProgramme } from "@/lib/site";
+import { PROGRAMME_STATUS, PROGRAMMES, getProgramme } from "@/lib/site";
 
 export function generateStaticParams() {
   return PROGRAMMES.map((p) => ({ slug: p.slug }));
@@ -70,6 +70,7 @@ export default async function ProgrammePage({ params }: { params: Promise<{ slug
       </figure>
 
       <section className="section shell programme" aria-label={p.title}>
+        <p className="status-note">{PROGRAMME_STATUS}</p>
         <div className="programme__intro">
           {p.intro.slice(1).map((t) => (
             <p key={t}>{t}</p>

@@ -45,7 +45,7 @@ export default function ContactPage() {
           <li>
             <div className="contact__way" data-kubai-trigger>
               <Icon name="pin" size={34} />
-              <span className="contact__term">Registered office</span>
+              <span className="contact__term">Office address</span>
               <address className="contact__value">
                 {ORG.office.map((l) => (
                   <span key={l}>{l}</span>
