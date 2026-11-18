@@ -1,6 +1,6 @@
 /* Hallmark · custom (by request: a large-foundation layout in the manner of reliancefoundation.org, with GSF's own brand) · genre: editorial · job: join (volunteer, partner, enquire) · hero: one creed word over the GSF banner · nav: bar with section panels and a join pill · footer: mast over four columns · surface: warm paper with white cards · posture: forest green as ground for hero, bands and footer · copy: verbatim (the Foundation's content plan) · signature: the round programme badges under the banner */
 /* Hallmark · pre-emit critique: P4 H5 E4 S4 R4 V4 · weakest: S, the foundation layout is a known shape; twisted it with the creed word "Sarvodaya", the script line, the arch under each dark opening and honest counts in place of reach figures */
-/* waive 44a 44c 59: the hero is the creed alone on purpose; the banner straddles its foot as the next element, so the first screen is creed plus banner · waive 71: the leaf tag sits tight above its head by design · waive 78: 22px heads are card titles, section heads are 52px · waive 6b: the hero centres its word, sentence and actions by request (the reference's creed hero), with the banner breaking the axis below · waive 42: an NGO with seven sections needs them all one tap away · waive 77: the quote and the forms are deliberately narrow reading measures · note 62: menu and panels hide only under data-ready (set by the header script) or until hover and focus; without script every link stays visible · copy: verbatim, so 19 (dashes, "Empowering") is reported, not changed */
+/* waive 44a 44c 59: the hero is the creed alone on purpose; the banner straddles its foot as the next element, so the first screen is creed plus banner · waive 71: the leaf tag sits tight above its head by design · waive 78: 22px heads are card titles, section heads are 52px · waive 6b: the hero centres its word, sentence and actions by request (the reference's creed hero), with the banner breaking the axis below · waive 42: an NGO with seven sections needs them all one tap away · waive 77: the quote and the forms are deliberately narrow reading measures · note 62: desktop panels hide until hover or focus; on phones the menu sits behind one button, and the footer lists every page for anyone without script · copy: verbatim, so 19 (dashes, "Empowering") is reported, not changed */
 
 /* GRAMYA SARVODAYA FOUNDATION, second edition. The page structure of a large
    Indian foundation's site: a header with a panel of pages under each
@@ -127,8 +127,10 @@ body {
   scrollbar-color: var(--forest) var(--paper-warm);
 }
 
+html[data-menu="open"],
 html[data-menu="open"] body {
   overflow: hidden;
+  scroll-behavior: auto;
 }
 
 ::selection {
@@ -499,82 +501,211 @@ p {
 }
 
 @media (max-width: 1180px) {
+  .bar__links,
   .bar__pill {
     display: none;
   }
-  /* Without script: the sections stay visible in a row that scrolls sideways. */
-  .bar:not([data-ready="true"]) .bar__inner {
-    flex-wrap: wrap;
-    padding-block: 0.5rem;
-  }
-  .bar:not([data-ready="true"]) .bar__nav {
-    width: 100%;
-    overflow-x: auto;
-  }
-  .bar:not([data-ready="true"]) .bar__panel {
-    display: none;
-  }
-  .bar[data-ready="true"] .bar__toggle {
+  .bar__toggle {
     display: inline-flex;
-  }
-  .bar[data-ready="true"] .bar__links {
-    position: fixed;
-    inset: var(--bar) 0 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    padding: 0.5rem var(--gutter) 2rem;
-    background: var(--card);
-    overflow-y: auto;
-    opacity: 0;
-    visibility: hidden;
-  }
-  .bar[data-open="true"] .bar__links {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.2s var(--ease);
-  }
-  .bar[data-ready="true"] .bar__item {
-    border-bottom: 1px solid var(--ink-line);
-    padding-block: 0.25rem;
-  }
-  .bar[data-ready="true"] .bar__link {
-    width: 100%;
-    min-height: 56px;
-    font-family: var(--font-display-stack);
-    font-weight: 400;
-    font-size: 1.5rem;
-  }
-  .bar[data-ready="true"] .bar__caret {
-    display: none;
-  }
-  /* In the menu every panel is simply listed under its section. */
-  .bar[data-ready="true"] .bar__panel {
-    position: static;
-    min-width: 0;
-    padding: 0 0 0.5rem;
-    border: 0;
-    box-shadow: none;
-    background: none;
-    opacity: 1;
-    visibility: inherit;
-    transform: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 1rem;
-  }
-  .bar[data-ready="true"] .bar__sublink {
-    padding-inline: 0;
-    color: var(--ink-soft);
+    justify-content: center;
+    padding: 0;
+    width: 48px;
   }
 }
-@media (max-width: 420px) {
+@media (max-width: 640px) {
+  :root {
+    --bar: 64px;
+  }
+  .bar__inner {
+    gap: 1rem;
+  }
+  .bar__seal {
+    width: 46px;
+    height: 46px;
+  }
+  .bar__spin {
+    display: none;
+  }
+  .bar__emblem {
+    width: 40px;
+    height: 40px;
+  }
   .bar__name-1 {
     font-size: 1.05rem;
   }
-  .bar__toggle-text {
+  .bar__name-2 {
+    font-size: 0.75rem;
+  }
+  .bar__toggle {
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 12px;
+  }
+}
+
+/* The phone and tablet menu: a full-screen sheet with its own top row, so
+   nothing behind it shows through or moves while it is open. */
+.mnav {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  background: var(--card);
+  color: var(--ink);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mnav[hidden] {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .mnav:not([hidden]) {
+    animation: mnav-in 0.18s var(--ease);
+  }
+  @keyframes mnav-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+}
+@media (min-width: 1181px) {
+  .mnav {
     display: none;
   }
+}
+.mnav__top {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: var(--bar);
+  padding-inline: var(--gutter);
+  background: var(--card);
+  border-bottom: 1px solid var(--ink-line);
+}
+.mnav__close {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--paper-warm);
+  color: var(--forest);
+  cursor: pointer;
+}
+.mnav__close span,
+.mnav__close span::after {
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+.mnav__close span::after {
+  content: "";
+  display: block;
+  transform: rotate(90deg);
+}
+.mnav__list {
+  padding: 0.5rem var(--gutter);
+}
+.mnav__item {
+  border-bottom: 1px solid var(--ink-line);
+}
+.mnav__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.mnav__link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  font-family: var(--font-display-stack);
+  font-size: 1.3rem;
+  color: var(--forest);
+}
+.mnav__link[aria-current="page"] {
+  color: var(--leaf-deep);
+  text-decoration: underline;
+  text-decoration-color: var(--leaf-bright);
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 2px;
+}
+.mnav__fold {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: var(--forest);
+  cursor: pointer;
+}
+.mnav__fold:hover {
+  background: var(--paper-warm);
+}
+.mnav__fold span {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s var(--ease);
+}
+.mnav__fold[aria-expanded="true"] span {
+  transform: translateY(2px) rotate(-135deg);
+}
+.mnav__sub {
+  padding: 0 0 0.75rem 0.75rem;
+  border-left: 2px solid var(--tint-leaf);
+  margin: 0 0 0.75rem 0.25rem;
+}
+.mnav__sub[hidden] {
+  display: none;
+}
+.mnav__sublink {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 0.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+.mnav__sublink:hover {
+  background: var(--paper-warm);
+  color: var(--forest);
+}
+.mnav__foot {
+  display: grid;
+  justify-items: start;
+  gap: 0.25rem;
+  margin-top: auto;
+  padding: 1.5rem var(--gutter) 2rem;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+.mnav__foot a:not(.button) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  overflow-wrap: anywhere;
+}
+.mnav__join {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 0.75rem;
 }
 
 /* ---------- dark openings ---------- */
@@ -2039,9 +2170,11 @@ a.contact__way:hover {
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: scroll()) {
     /* The seal turns as the page scrolls: the only scroll-linked motion. */
-    .bar__spin {
-      animation: spin linear both;
-      animation-timeline: scroll(root);
+    @media (min-width: 1181px) {
+      .bar__spin {
+        animation: spin linear both;
+        animation-timeline: scroll(root);
+      }
     }
     @keyframes spin {
       to {
