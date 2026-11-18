@@ -65,7 +65,7 @@ export default async function ProgrammePage({ params }: { params: Promise<{ slug
         <Photo photo={photo} w={1240} h={520} sizes="(max-width: 1272px) 94vw, 1240px" priority />
         <figcaption className="feature__credit">
           Photo by <a href={`https://unsplash.com/@${photo.user}`}>{photo.by}</a> on{" "}
-          <a href={photo.page}>Unsplash</a>. An illustration of rural India, not a Foundation project.
+          <a href={photo.page}>Unsplash</a>. An illustrative photo, not a Foundation project.
         </figcaption>
       </figure>
 

@@ -73,7 +73,7 @@ export default function SiteFooter() {
         <div className="footer__base">
           <p className="footer__motto script">{ORG.motto}.</p>
           <p className="footer__copy">
-            Photographs of rural India on this site are illustrative, from{" "}
+            Photographs on this site are illustrative, from{" "}
             <Link href="/credits">Unsplash</Link>, and do not show Foundation
             projects.
           </p>
