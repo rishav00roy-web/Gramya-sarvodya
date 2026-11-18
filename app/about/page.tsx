@@ -26,8 +26,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="band" id="philosophy" data-ground="dark" aria-labelledby="philosophy-title">
-        <div className="shell band__inner">
+      <section className="band band--panel shell" id="philosophy" aria-labelledby="philosophy-title">
+        <div className="band__inner" data-ground="dark">
           <div className="band__photo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

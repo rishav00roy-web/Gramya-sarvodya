@@ -18,7 +18,7 @@ export default function FocusStrip() {
               data-kubai-trigger
             >
               <span className="strip__ring">
-                <Icon name={p.icon} size={34} />
+                <Icon name={p.icon} size={40} />
               </span>
               <span className="strip__label">{p.short}</span>
             </Link>

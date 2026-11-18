@@ -79,6 +79,10 @@
   --earth: #7a4b26;
   --earth-soft: #a8784d;
 
+  --tint-leaf: #e6f0d8;
+  --tint-forest: #dfe9e1;
+  --tint-earth: #f1e4d4;
+  --tint-sprout: #eef5df;
   --on-dark: #f6f7f1;
   --on-dark-soft: rgb(246 247 241 / 0.8);
   --on-dark-line: rgb(246 247 241 / 0.22);
@@ -465,10 +469,12 @@ p {
   gap: 0.6rem;
   min-height: 48px;
   min-width: 48px;
-  padding-inline: 0.5rem;
+  padding-inline: 0.85rem;
+  border-radius: 12px;
+  background: var(--forest);
   cursor: pointer;
   font-weight: 600;
-  color: var(--forest);
+  color: var(--on-dark);
 }
 .bar__toggle-lines {
   width: 22px;
@@ -568,49 +574,46 @@ p {
   color: var(--on-dark);
 }
 
-.arch {
-  position: absolute;
-  inset: auto 0 -1px;
-  height: clamp(32px, 5vw, 80px);
-  background: var(--paper);
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-}
 
-/* The home hero: the creed word, one sentence, two actions, the banner. */
+/* The home hero: a rounded forest card, the creed word and one sentence
+   on the left, the Foundation's sunrise banner on the right. */
 .hero {
-  position: relative;
-  padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 4vw, 3.5rem);
+  padding-block: clamp(0.5rem, 1.5vw, 1rem) clamp(2.5rem, 5vw, 4rem);
 }
-/* The banner straddles the hero's foot: forest above its middle, paper below. */
-.banner {
-  background: linear-gradient(to bottom, var(--forest-deep) 50%, var(--paper) 50%);
-}
-.hero__inner {
+.hero__card {
   display: grid;
-  justify-items: center;
-  text-align: center;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding: clamp(1.25rem, 3.5vw, 3rem);
+  border-radius: calc(var(--radius) * 1.5);
+  box-shadow: 0 24px 60px var(--shadow-strong);
+}
+.hero__words {
+  display: grid;
+  justify-items: start;
+  padding-inline-start: clamp(0rem, 1.5vw, 1rem);
 }
 .hero__kicker {
-  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
   color: var(--sprout);
   transform: rotate(-3deg);
-  margin-bottom: -0.15em;
+  margin-bottom: -0.1em;
 }
 .hero__title {
-  font-size: clamp(3.6rem, 12vw, 9.5rem);
+  font-size: clamp(3.2rem, 7vw, 6.25rem);
   line-height: 0.95;
   letter-spacing: -0.03em;
 }
 .hero__lede {
   margin-top: clamp(1rem, 2vw, 1.5rem);
-  max-width: 60ch;
+  max-width: 52ch;
   font-size: clamp(1.0625rem, 0.98rem + 0.3vw, 1.2rem);
   color: var(--on-dark-soft);
 }
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
   gap: 0.75rem 1.5rem;
   margin-top: clamp(1.25rem, 2.5vw, 2rem);
@@ -620,12 +623,19 @@ p {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: var(--radius);
-  box-shadow: 0 24px 60px var(--shadow-strong);
+}
+@media (max-width: 900px) {
+  .hero__card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero__media {
+    order: -1;
+  }
 }
 
 /* The round programme badges. */
 .strip {
-  padding-block: clamp(2.5rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem);
+  padding-block: clamp(1.25rem, 2.5vw, 2rem);
 }
 .strip__list {
   display: grid;
@@ -645,19 +655,21 @@ p {
   width: clamp(64px, 6.2vw, 84px);
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 2px solid var(--ring, var(--forest));
-  background: var(--card);
-  transition: transform 0.25s var(--ease), background-color 0.25s var(--ease);
+  border: 1.5px solid var(--ring, var(--forest));
+  background: var(--fill, var(--tint-forest));
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
 .strip__item[data-tone="leaf"] {
   --ring: var(--leaf-bright);
+  --fill: var(--tint-leaf);
 }
 .strip__item[data-tone="earth"] {
   --ring: var(--earth-soft);
+  --fill: var(--tint-earth);
 }
 .strip__item:hover .strip__ring {
   transform: translateY(-3px);
-  background: var(--paper-warm);
+  box-shadow: 0 10px 22px var(--shadow);
 }
 .strip__label {
   font-size: 0.8125rem;
@@ -681,19 +693,30 @@ p {
   }
 }
 
-/* The pull quote. */
+/* The pull quote, on a pale leaf panel with the village house beside it. */
 .quote {
+  padding-block: clamp(1rem, 3vw, 2rem) var(--space);
+}
+.quote__panel {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 18rem);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: stretch;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  border-radius: calc(var(--radius) * 1.5);
+  background: var(--tint-leaf);
+}
+.quote__words {
+  display: grid;
+  align-content: center;
   justify-items: start;
   gap: 1.25rem;
-  padding-block: clamp(3rem, 6vw, 5rem) var(--space);
-  max-width: calc(58rem + 2 * var(--gutter));
 }
 .quote__body {
   position: relative;
   padding-left: clamp(2.5rem, 5vw, 4rem);
   font-family: var(--font-display-stack);
-  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2.1rem);
+  font-size: clamp(1.35rem, 1.05rem + 1.1vw, 2rem);
   line-height: 1.35;
   color: var(--forest);
 }
@@ -704,7 +727,7 @@ p {
   top: -0.25em;
   font-size: 3em;
   line-height: 1;
-  color: var(--leaf-bright);
+  color: var(--leaf);
 }
 .quote__by {
   display: grid;
@@ -717,6 +740,25 @@ p {
 }
 .quote .textlink {
   margin-left: clamp(2.5rem, 5vw, 4rem);
+}
+.quote__photo {
+  overflow: hidden;
+  border-radius: var(--radius);
+  min-height: 16rem;
+}
+.quote__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 760px) {
+  .quote__panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .quote__photo {
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+  }
 }
 
 /* ---------- sections ---------- */
@@ -898,11 +940,7 @@ p {
 .facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--ink-line);
-  border: 1px solid var(--ink-line);
-  border-radius: var(--radius);
-  overflow: hidden;
+  gap: 0.875rem;
 }
 .facts > div {
   display: flex;
@@ -910,7 +948,17 @@ p {
   justify-content: start;
   gap: 0.35rem;
   padding: clamp(1.25rem, 2.5vw, 2rem);
-  background: var(--card);
+  border-radius: var(--radius);
+  background: var(--tint-leaf);
+}
+.facts > [data-tone="earth"] {
+  background: var(--tint-earth);
+}
+.facts > [data-tone="forest"] {
+  background: var(--tint-forest);
+}
+.facts > [data-tone="sprout"] {
+  background: var(--tint-sprout);
 }
 .facts dd {
   font-family: var(--font-display-stack);
@@ -932,6 +980,42 @@ p {
 /* A dark band: an arch-topped photograph beside the words. */
 .band {
   padding-block: var(--space);
+}
+/* The split as a rounded forest panel inside the page. */
+.band--panel {
+  padding-block: clamp(1rem, 3vw, 2rem);
+}
+.band--panel > [data-ground] {
+  padding: clamp(1.25rem, 4vw, 3.5rem);
+  border-radius: calc(var(--radius) * 1.5);
+}
+/* The same split, as a white rounded card inside the page. */
+.band--card {
+  padding-block: 0 var(--space);
+}
+.band--card .band__inner {
+  padding: clamp(1.25rem, 4vw, 3.5rem);
+  border-radius: calc(var(--radius) * 1.5);
+  background: var(--card);
+  box-shadow: 0 1px 0 var(--ink-line), 0 18px 40px var(--shadow);
+}
+.band--card .band__photo {
+  max-height: 520px;
+}
+.band--card .band__intro,
+.band--card .band__together {
+  color: var(--ink-soft);
+}
+.band--card .terms > div {
+  border-top-color: var(--ink-line);
+}
+.band--card .terms dt {
+  color: var(--leaf-deep);
+}
+.band--card .chips li {
+  border-color: var(--ink-line);
+  background: var(--tint-leaf);
+  color: var(--forest);
 }
 .band__inner {
   display: grid;
@@ -1226,9 +1310,12 @@ a.ways__item:hover {
 
 /* ---------- inner page hero ---------- */
 .phero {
-  position: relative;
-  padding-top: clamp(3rem, 7vw, 5.5rem);
-  padding-bottom: clamp(5.5rem, 10vw, 8.5rem);
+  padding-block: clamp(0.5rem, 1.5vw, 1rem) clamp(1.5rem, 4vw, 3rem);
+}
+.phero__card {
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 5vw, 4rem);
+  border-radius: calc(var(--radius) * 1.5);
+  box-shadow: 0 24px 60px var(--shadow-strong);
 }
 .phero__inner {
   display: grid;

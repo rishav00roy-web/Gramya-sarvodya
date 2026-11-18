@@ -37,8 +37,8 @@ export default function ApproachPage() {
         </ol>
       </section>
 
-      <section className="band band--plain" data-ground="dark" aria-labelledby="values-title">
-        <div className="shell">
+      <section className="band band--plain band--panel shell" aria-labelledby="values-title">
+        <div data-ground="dark">
           <h2 className="band__title caps" id="values-title">
             Our core values
           </h2>

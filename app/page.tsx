@@ -53,55 +53,68 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
 
-      {/* One word set very large, the way a foundation states its creed,
-          then the Foundation's own banner as the hero picture. */}
-      <section className="hero" data-ground="dark" aria-labelledby="hero-title">
-        <div className="shell hero__inner">
-          <p className="hero__kicker script" aria-hidden="true">
-            Welfare of all
-          </p>
-          <h1 className="hero__title" id="hero-title">
-            Sarvodaya
-          </h1>
-          <p className="hero__lede">{INTRO}</p>
-          <div className="hero__actions">
-            <Link className="button button--light" href="/about">
-              Know more
-            </Link>
-            <Link className="textlink textlink--light" href="/get-involved">
-              Join our movement
-            </Link>
+      <FocusStrip />
+
+      {/* The creed word and one sentence on a rounded forest card, with the
+          Foundation's own sunrise banner set beside it. */}
+      <section className="hero shell" aria-labelledby="hero-title">
+        <div className="hero__card" data-ground="dark">
+          <div className="hero__words">
+            <p className="hero__kicker script" aria-hidden="true">
+              Welfare of all
+            </p>
+            <h1 className="hero__title" id="hero-title">
+              Sarvodaya
+            </h1>
+            <p className="hero__lede">{INTRO}</p>
+            <div className="hero__actions">
+              <Link className="button button--light" href="/about">
+                Know more
+              </Link>
+              <Link className="textlink textlink--light" href="/get-involved">
+                Join our movement
+              </Link>
+            </div>
           </div>
+          <figure className="hero__media">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={asset("/media/gsf-sunrise.webp")}
+              alt="The Gramya Sarvodaya Foundation emblem over a sunrise: bamboo, a river valley, rice fields and a thatched village house, with the words Strong Villages, Prosperous Nation."
+              width={1600}
+              height={900}
+              fetchPriority="high"
+            />
+          </figure>
         </div>
       </section>
 
-      <div className="banner">
-        <figure className="hero__media shell">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={asset("/media/gsf-sunrise.webp")}
-            alt="The Gramya Sarvodaya Foundation emblem over a sunrise: bamboo, a river valley, rice fields and a thatched village house, with the words Strong Villages, Prosperous Nation."
-            width={1600}
-            height={900}
-            fetchPriority="high"
-          />
-        </figure>
-      </div>
-
-      <FocusStrip />
-
       {/* The Foundation's founding belief, set as a pull quote. */}
       <section className="quote shell" aria-label="Our belief">
-        <blockquote className="quote__body">
-          <p>{HOME.body}</p>
-        </blockquote>
-        <p className="quote__by">
-          <span className="quote__name">Our philosophy</span>
-          <span>{ORG.philosophy}</span>
-        </p>
-        <Link className="textlink" href="/about#philosophy">
-          Read more
-        </Link>
+        <div className="quote__panel">
+          <div className="quote__words">
+            <blockquote className="quote__body">
+              <p>{HOME.body}</p>
+            </blockquote>
+            <p className="quote__by">
+              <span className="quote__name">Our philosophy</span>
+              <span>{ORG.philosophy}</span>
+            </p>
+            <Link className="textlink" href="/about#philosophy">
+              Read more
+            </Link>
+          </div>
+          <div className="quote__photo">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={asset("/media/village-hut.webp")}
+              alt="A thatched bamboo house on stilts with a clay pot and a woven basket at dawn."
+              width={310}
+              height={650}
+              loading="lazy"
+            />
+          </div>
+        </div>
       </section>
 
       <section className="section section--tint" aria-labelledby="programmes-title">
@@ -133,8 +146,8 @@ export default function Home() {
           </Link>
         </div>
         <dl className="facts">
-          {FACTS.map((f) => (
-            <div key={f.label}>
+          {FACTS.map((f, i) => (
+            <div key={f.label} data-tone={["leaf", "earth", "forest", "sprout"][i % 4]}>
               <dt>{f.label}</dt>
               <dd>{f.value}</dd>
             </div>
@@ -142,26 +155,26 @@ export default function Home() {
         </dl>
       </section>
 
-      {/* The name explained, on forest green beside the sunrise. */}
-      <section className="band" data-ground="dark" aria-labelledby="name-title">
-        <div className="shell band__inner">
+      {/* The name explained, on a white card beside the village house. */}
+      <section className="band band--card shell" aria-labelledby="name-title">
+        <div className="band__inner">
           <div className="band__photo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={asset("/media/village-hut.webp")}
-              alt="A thatched bamboo house on stilts with a clay pot and a woven basket at dawn."
-              width={310}
-              height={650}
+              src={asset("/media/bamboo-river.webp")}
+              alt="Bamboo leaning over a river valley at sunrise."
+              width={262}
+              height={900}
               loading="lazy"
             />
           </div>
           <div className="band__copy">
-            <p className="tag tag--light">Inspired by Gandhian ideology</p>
+            <p className="tag">Inspired by Gandhian ideology</p>
             <h2 className="band__title" id="name-title">
               Our philosophy
             </h2>
             <p className="band__intro">Our name represents two powerful ideas:</p>
-            <dl className="terms terms--light">
+            <dl className="terms">
               {ABOUT.name.map((t) => (
                 <div key={t.term}>
                   <dt>{t.term}</dt>
