@@ -127,6 +127,15 @@ body {
   scrollbar-color: var(--forest) var(--paper-warm);
 }
 
+/* Lenis (smooth wheel scrolling on a desktop) drives the scroll itself. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
 html[data-menu="open"],
 html[data-menu="open"] body {
   overflow: hidden;
@@ -550,7 +559,7 @@ p {
 }
 /* On the narrowest phones the name sits on two lines so the login pill
    and menu button fit beside it. */
-@media (max-width: 400px) {
+@media (max-width: 360px) {
   .bar__inner {
     gap: 0.5rem;
   }
@@ -820,6 +829,41 @@ p {
     order: -1;
   }
 }
+/* On a phone the hero is quieter: the words come first, the photograph
+   follows as a short band, the type steps down and the card loses its
+   heavy shadow, so the first screen is one idea, not four. */
+@media (max-width: 640px) {
+  .hero {
+    padding-block: 0.25rem 2rem;
+  }
+  .hero__card {
+    gap: 1.25rem;
+    box-shadow: none;
+  }
+  .hero__media {
+    order: 0;
+  }
+  .hero__media .photo {
+    aspect-ratio: 16 / 9;
+  }
+  .hero__words {
+    padding-inline-start: 0;
+  }
+  .hero__kicker {
+    font-size: 1.5rem;
+    transform: none;
+    margin-bottom: 0.1em;
+  }
+  .hero__lede {
+    margin-top: 0.85rem;
+    font-size: 0.9688rem;
+    line-height: 1.6;
+  }
+  .hero__actions {
+    margin-top: 1.25rem;
+    gap: 0.5rem 1.25rem;
+  }
+}
 
 /* The round programme badges. */
 .strip {
@@ -885,6 +929,30 @@ p {
   }
   .strip__label {
     max-width: none;
+    font-size: 0.75rem;
+  }
+}
+@media (max-width: 640px) {
+  .strip {
+    padding-block: 0.75rem 0.5rem;
+  }
+  .strip__list {
+    gap: 0.75rem;
+  }
+  .strip__list li {
+    width: 88px;
+  }
+  .strip__item {
+    gap: 0.4rem;
+  }
+  .strip__ring {
+    width: 52px;
+  }
+  .strip__ring svg {
+    width: 28px;
+    height: 28px;
+  }
+  .strip__label {
     font-size: 0.75rem;
   }
 }
@@ -2263,9 +2331,8 @@ a.contact__way:hover {
     padding-block: 1.5rem 1.75rem;
   }
   .hero__title {
-    font-size: clamp(2.6rem, 14vw, 3.4rem);
+    font-size: clamp(2.4rem, 12vw, 2.9rem);
   }
-  .hero__lede,
   .phero__lede {
     font-size: 1rem;
   }
