@@ -1,7 +1,8 @@
 import { LEGAL_PENDING, ORG } from "@/lib/site";
 
 /* Working drafts of the website's legal pages, written for a static site
-   that sets no cookies of its own and stores nothing. They should be
+   that sets no cookies of its own and stores only optional member accounts
+   (in Convex). They should be
    reviewed against the Foundation's registration documents before launch. */
 export type LegalDoc = {
   slug: string;
@@ -21,7 +22,15 @@ export const LEGAL: LegalDoc[] = [
       {
         heading: "What this website collects",
         body: [
-          "This website does not ask you to create an account and does not store the information you type into its forms. When you use a form, the site opens your own email application with your message addressed to the Foundation; nothing is sent until you press send there.",
+          "The website's enquiry forms do not store what you type. When you use one, the site opens your own email application with your message addressed to the Foundation; nothing is sent until you press send there.",
+        ],
+      },
+      {
+        heading: "Member accounts",
+        body: [
+          "You can choose to create a member account. If you do, we store your email address, the date you joined, and any profile details you add (such as your name, phone number, village or district and how you would like to take part). This is kept with Convex, the database service that runs the account area, and may be held on servers outside India.",
+          "To sign in, we send a one-time code to your email through Resend, an email delivery service. The code works for 15 minutes. While you are signed in, a sign-in token is kept in your browser's local storage; signing out removes it.",
+          `You can change your profile at any time on the My Account page. To have your account deleted, write to ${contact}.`,
         ],
       },
       {
@@ -95,6 +104,7 @@ export const LEGAL: LegalDoc[] = [
         heading: "Cookies on this website",
         body: [
           "This website does not set cookies of its own and does not use advertising or tracking cookies. Fonts are served with the site itself.",
+          "If you sign in to a member account, a sign-in token is kept in your browser's local storage (not a cookie) so that you stay signed in. Signing out removes it.",
           "If analytics or embedded content are added in future, this page will be updated first to say what they are and how to refuse them.",
         ],
       },

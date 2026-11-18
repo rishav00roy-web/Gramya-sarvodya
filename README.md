@@ -27,3 +27,23 @@ Pushing to `main` deploys to GitHub Pages through `.github/workflows/pages.yml`.
 - **Legal pages** are working drafts; review them, and add registration, governing-body, statutory and tax-exemption details once verified.
 - **Regulated activities.** The site states that the Foundation does not accept deposits or provide financial services, is not itself an FPC, and offers wellness education rather than clinical treatment. Keep those lines unless the legal position changes.
 - **Photographs.** The only images are the GSF logo artwork and crops of it. Real photographs of the Foundation's work would lift the site most.
+
+## Member accounts (email code sign-in)
+
+`/account/` lets visitors sign in with a six-digit code emailed to them and
+keep a profile. It runs in the browser against [Convex](https://convex.dev)
+(functions in `convex/`, Convex Auth with a Resend email provider); the rest
+of the site stays a static export.
+
+Environment variables, all set in Vercel (Production):
+
+| Name | What it is |
+| --- | --- |
+| `CONVEX_DEPLOY_KEY` | Production deploy key from the Convex dashboard. Without it the site builds without sign-in. |
+| `AUTH_RESEND_KEY` | Resend API key used to email the codes. |
+| `AUTH_EMAIL_FROM` | Optional sender, e.g. `Gramya Sarvodaya Foundation <no-reply@your-domain>` on a domain verified in Resend. |
+| `SITE_URL` | Optional; defaults to https://gramya-three.vercel.app. |
+
+`npm run build` (`scripts/build.mjs`) creates the Convex sign-in keys on the
+first deploy, copies the Resend settings to Convex, pushes `convex/` and
+builds the site with `NEXT_PUBLIC_CONVEX_URL` set.

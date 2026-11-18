@@ -394,6 +394,7 @@ p {
   position: relative;
 }
 .bar__link {
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -460,6 +461,7 @@ p {
   color: var(--forest);
 }
 .bar__pill {
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -474,6 +476,22 @@ p {
 .bar__pill:hover {
   background: var(--forest);
   color: var(--on-dark);
+}
+.bar__account {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--forest);
+  white-space: nowrap;
+  text-underline-offset: 0.4em;
+  text-decoration-thickness: 2px;
+}
+.bar__account:hover,
+.bar__account[aria-current="page"] {
+  text-decoration-line: underline;
+  text-decoration-color: var(--leaf-bright);
 }
 .bar__toggle {
   display: none;
@@ -498,8 +516,9 @@ p {
   transform: scaleX(0.7);
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1359px) {
   .bar__links,
+  .bar__account,
   .bar__pill {
     display: none;
   }
@@ -573,7 +592,7 @@ p {
     }
   }
 }
-@media (min-width: 1181px) {
+@media (min-width: 1360px) {
   .mnav {
     display: none;
   }
@@ -699,6 +718,10 @@ p {
   align-items: center;
   min-height: 40px;
   overflow-wrap: anywhere;
+}
+.mnav__foot .mnav__account {
+  font-weight: 600;
+  color: var(--forest);
 }
 .mnav__join {
   width: 100%;
@@ -2168,7 +2191,7 @@ a.contact__way:hover {
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: scroll()) {
     /* The seal turns as the page scrolls: the only scroll-linked motion. */
-    @media (min-width: 1181px) {
+    @media (min-width: 1360px) {
       .bar__spin {
         animation: spin linear both;
         animation-timeline: scroll(root);
@@ -2293,5 +2316,125 @@ a.contact__way:hover {
   }
   .footer__name {
     font-size: 1.9rem;
+  }
+}
+
+/* ---------- member account ---------- */
+.account {
+  display: grid;
+}
+.acard {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--card);
+  border: 1px solid var(--ink-line);
+  border-radius: 18px;
+  max-width: 880px;
+}
+.acard--narrow {
+  max-width: 30rem;
+}
+.acard__title {
+  font-family: var(--font-display-stack);
+  font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--forest);
+}
+.acard__text {
+  max-width: 56ch;
+  color: var(--ink-soft);
+}
+.acard__text a {
+  color: var(--forest);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.aform {
+  display: grid;
+  gap: 1rem;
+}
+.aform .button {
+  justify-self: start;
+}
+.aform__code {
+  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.3em;
+  max-width: 12rem;
+}
+.aform__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.25rem;
+}
+.alink {
+  min-height: 44px;
+  color: var(--forest);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  cursor: pointer;
+}
+.alink:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.aform__status {
+  min-height: 1lh;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+.aform__status:empty {
+  display: none;
+}
+.dash {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: var(--gap);
+  align-items: start;
+}
+.dash .form {
+  max-width: none;
+}
+.dash__side {
+  background: var(--tint-leaf);
+  border-color: transparent;
+}
+.dash__hello {
+  font-family: var(--font-display-stack);
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  line-height: 1.1;
+  color: var(--forest);
+  overflow-wrap: anywhere;
+}
+.dash__facts {
+  display: grid;
+  gap: 0.85rem;
+}
+.dash__facts dt {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--leaf-deep);
+}
+.dash__facts dd {
+  overflow-wrap: anywhere;
+}
+.button--quiet {
+  justify-self: start;
+  background: transparent;
+  color: var(--forest);
+  border: 1.5px solid var(--forest);
+}
+.button--quiet:hover {
+  background: var(--forest);
+  color: var(--on-dark);
+}
+@media (max-width: 860px) {
+  .dash {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

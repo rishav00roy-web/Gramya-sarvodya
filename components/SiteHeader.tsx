@@ -67,7 +67,7 @@ export default function SiteHeader() {
     closeRef.current?.focus();
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("keydown", onKey);
-    const wide = window.matchMedia("(min-width: 1181px)");
+    const wide = window.matchMedia("(min-width: 1360px)");
     const onWide = () => wide.matches && setOpen(false);
     wide.addEventListener("change", onWide);
     const toggle = toggleRef.current;
@@ -166,6 +166,13 @@ export default function SiteHeader() {
               </li>
             ))}
           </ul>
+          <Link
+            className="bar__account"
+            href="/account"
+            aria-current={current("/account") ? "page" : undefined}
+          >
+            My account
+          </Link>
           <Link className="bar__pill" href="/get-involved">
             Join us
           </Link>
@@ -282,6 +289,9 @@ export default function SiteHeader() {
             onClick={close}
           >
             Join us
+          </Link>
+          <Link className="mnav__account" href="/account" onClick={close}>
+            My account
           </Link>
           <a href={`mailto:${ORG.email}`}>{ORG.email}</a>
           <a href={ORG.phoneHref}>{ORG.phone}</a>
