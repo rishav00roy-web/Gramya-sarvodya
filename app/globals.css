@@ -477,21 +477,27 @@ p {
   background: var(--forest);
   color: var(--on-dark);
 }
-.bar__account {
+/* The member login: a filled pill beside "Join us" on a wide screen, and a
+   short "Login" pill beside the menu button on a phone or tablet. */
+.bar__login {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  background: var(--forest);
+  color: var(--on-dark);
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--forest);
   white-space: nowrap;
-  text-underline-offset: 0.4em;
-  text-decoration-thickness: 2px;
+  transition: background-color 0.2s var(--ease);
 }
-.bar__account:hover,
-.bar__account[aria-current="page"] {
-  text-decoration-line: underline;
-  text-decoration-color: var(--leaf-bright);
+.bar__login:hover,
+.bar__login[aria-current="page"] {
+  background: var(--forest-deep);
+}
+.bar__login-short {
+  display: none;
 }
 .bar__toggle {
   display: none;
@@ -516,9 +522,8 @@ p {
   transform: scaleX(0.7);
 }
 
-@media (max-width: 1359px) {
+@media (max-width: 1439px) {
   .bar__links,
-  .bar__account,
   .bar__pill {
     display: none;
   }
@@ -527,6 +532,34 @@ p {
     justify-content: center;
     padding: 0;
     width: 48px;
+  }
+}
+@media (max-width: 480px) {
+  .bar__nav {
+    gap: 0.5rem;
+  }
+  .bar__login {
+    padding-inline: 0.9rem;
+  }
+  .bar__login-long {
+    display: none;
+  }
+  .bar__login-short {
+    display: inline;
+  }
+}
+/* On the narrowest phones the name sits on two lines so the login pill
+   and menu button fit beside it. */
+@media (max-width: 400px) {
+  .bar__inner {
+    gap: 0.5rem;
+  }
+  .bar__brand {
+    gap: 0.5rem;
+  }
+  .bar__name-1 {
+    max-width: 5.5em;
+    line-height: 1.05;
   }
 }
 @media (max-width: 640px) {
@@ -592,7 +625,7 @@ p {
     }
   }
 }
-@media (min-width: 1360px) {
+@media (min-width: 1440px) {
   .mnav {
     display: none;
   }
@@ -718,10 +751,6 @@ p {
   align-items: center;
   min-height: 40px;
   overflow-wrap: anywhere;
-}
-.mnav__foot .mnav__account {
-  font-weight: 600;
-  color: var(--forest);
 }
 .mnav__join {
   width: 100%;
@@ -2191,7 +2220,7 @@ a.contact__way:hover {
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: scroll()) {
     /* The seal turns as the page scrolls: the only scroll-linked motion. */
-    @media (min-width: 1360px) {
+    @media (min-width: 1440px) {
       .bar__spin {
         animation: spin linear both;
         animation-timeline: scroll(root);

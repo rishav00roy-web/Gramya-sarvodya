@@ -67,7 +67,7 @@ export default function SiteHeader() {
     closeRef.current?.focus();
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("keydown", onKey);
-    const wide = window.matchMedia("(min-width: 1360px)");
+    const wide = window.matchMedia("(min-width: 1440px)");
     const onWide = () => wide.matches && setOpen(false);
     wide.addEventListener("change", onWide);
     const toggle = toggleRef.current;
@@ -167,11 +167,17 @@ export default function SiteHeader() {
             ))}
           </ul>
           <Link
-            className="bar__account"
+            className="bar__login"
             href="/account"
+            aria-label="Member login"
             aria-current={current("/account") ? "page" : undefined}
           >
-            My account
+            <span className="bar__login-long" aria-hidden="true">
+              Member login
+            </span>
+            <span className="bar__login-short" aria-hidden="true">
+              Login
+            </span>
           </Link>
           <Link className="bar__pill" href="/get-involved">
             Join us
@@ -283,15 +289,15 @@ export default function SiteHeader() {
         </ul>
 
         <div className="mnav__foot">
+          <Link className="button mnav__join" href="/account" onClick={close}>
+            Member login
+          </Link>
           <Link
-            className="button mnav__join"
+            className="button button--quiet mnav__join"
             href="/get-involved"
             onClick={close}
           >
             Join us
-          </Link>
-          <Link className="mnav__account" href="/account" onClick={close}>
-            My account
           </Link>
           <a href={`mailto:${ORG.email}`}>{ORG.email}</a>
           <a href={ORG.phoneHref}>{ORG.phone}</a>
