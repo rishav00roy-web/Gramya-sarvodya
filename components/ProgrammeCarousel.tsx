@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useRef } from "react";
 import Icon from "@/components/Icon";
+import Photo from "@/components/Photo";
+import { PROGRAMME_PHOTOS } from "@/lib/photos";
 import { PROGRAMMES } from "@/lib/site";
 
 /* The programmes as a row of cards that scrolls sideways, with previous and
@@ -34,6 +36,14 @@ export default function ProgrammeCarousel() {
         {PROGRAMMES.map((p) => (
           <li key={p.slug} className="carousel__card">
             <Link className="pcard" href={`/programmes/${p.slug}`} data-kubai-trigger>
+              <span className="pcard__media">
+                <Photo
+                  photo={PROGRAMME_PHOTOS[p.slug]}
+                  w={560}
+                  h={350}
+                  sizes="(max-width: 600px) 82vw, (max-width: 1100px) 45vw, 300px"
+                />
+              </span>
               <span className="pcard__top">
                 <span className="pcard__tag">Programme {p.letter}</span>
                 <Icon name={p.icon} size={40} />

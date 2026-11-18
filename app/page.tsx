@@ -2,7 +2,9 @@ import Link from "next/link";
 import Closing from "@/components/Closing";
 import FocusStrip from "@/components/FocusStrip";
 import Icon from "@/components/Icon";
+import Photo from "@/components/Photo";
 import ProgrammeCarousel from "@/components/ProgrammeCarousel";
+import { HERO_PHOTO } from "@/lib/photos";
 import {
   ABOUT,
   APPROACH,
@@ -55,8 +57,8 @@ export default function Home() {
 
       <FocusStrip />
 
-      {/* The creed word and one sentence on a rounded forest card, with the
-          Foundation's own sunrise banner set beside it. */}
+      {/* The creed word and one sentence on a rounded forest card, with a
+          photograph of a tea-garden path beside it. */}
       <section className="hero shell" aria-labelledby="hero-title">
         <div className="hero__card" data-ground="dark">
           <div className="hero__words">
@@ -77,13 +79,12 @@ export default function Home() {
             </div>
           </div>
           <figure className="hero__media">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={asset("/media/gsf-sunrise.webp")}
-              alt="The Gramya Sarvodaya Foundation emblem over a sunrise: bamboo, a river valley, rice fields and a thatched village house, with the words Strong Villages, Prosperous Nation."
-              width={1600}
-              height={900}
-              fetchPriority="high"
+            <Photo
+              photo={HERO_PHOTO}
+              w={1200}
+              h={900}
+              sizes="(max-width: 900px) 92vw, 640px"
+              priority
             />
           </figure>
         </div>

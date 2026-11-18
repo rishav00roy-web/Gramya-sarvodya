@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import Closing from "@/components/Closing";
 import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
+import Photo from "@/components/Photo";
+import { PROGRAMME_PHOTOS } from "@/lib/photos";
 import { PROGRAMMES, getProgramme } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -42,6 +44,7 @@ export default async function ProgrammePage({ params }: { params: Promise<{ slug
   const i = PROGRAMMES.indexOf(p);
   const prev = PROGRAMMES[(i - 1 + PROGRAMMES.length) % PROGRAMMES.length];
   const next = PROGRAMMES[(i + 1) % PROGRAMMES.length];
+  const photo = PROGRAMME_PHOTOS[p.slug];
 
   return (
     <>
@@ -57,6 +60,14 @@ export default async function ProgrammePage({ params }: { params: Promise<{ slug
       >
         <p>{p.intro[0]}</p>
       </PageHero>
+
+      <figure className="shell feature">
+        <Photo photo={photo} w={1240} h={520} sizes="(max-width: 1272px) 94vw, 1240px" priority />
+        <figcaption className="feature__credit">
+          Photo by <a href={`https://unsplash.com/@${photo.user}`}>{photo.by}</a> on{" "}
+          <a href={photo.page}>Unsplash</a>. An illustration of rural India, not a Foundation project.
+        </figcaption>
+      </figure>
 
       <section className="section shell programme" aria-label={p.title}>
         <div className="programme__intro">

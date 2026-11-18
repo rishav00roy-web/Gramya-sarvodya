@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/resources/",
     "/contact/",
     ...LEGAL.map((d) => `/legal/${d.slug}/`),
+    "/credits/",
   ];
   return paths.map((path) => ({ url: `${ORG.url}${path}` }));
 }

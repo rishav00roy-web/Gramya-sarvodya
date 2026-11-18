@@ -19,11 +19,14 @@ export default function EnquiryForm({
   title,
   intro,
   interests,
+  compact = false,
 }: {
   kind: Kind;
   title: string;
   intro?: string;
   interests?: string[];
+  /** Only name, email and message, with the title read out but not shown. */
+  compact?: boolean;
 }) {
   const uid = useId();
   const [state, setState] = useState<"idle" | "invalid" | "opened">("idle");
@@ -41,7 +44,9 @@ export default function EnquiryForm({
       `Name: ${data.get("name")}`,
       `Email: ${data.get("email")}`,
       data.get("phone") ? `Phone: ${data.get("phone")}` : "",
-      data.get("organisation") ? `Organisation: ${data.get("organisation")}` : "",
+      data.get("organisation")
+        ? `Organisation: ${data.get("organisation")}`
+        : "",
       data.get("interest") ? `Area of interest: ${data.get("interest")}` : "",
       "",
       String(data.get("message") ?? ""),
@@ -56,8 +61,18 @@ export default function EnquiryForm({
   const f = (name: string) => `${uid}-${name}`;
 
   return (
-    <form className="form" onSubmit={onSubmit} noValidate aria-labelledby={f("title")}>
-      <h2 className="form__title caps" id={f("title")}>
+    <form
+      className={compact ? "form form--compact" : "form"}
+      onSubmit={onSubmit}
+      noValidate
+      aria-labelledby={f("title")}
+    >
+      <h2
+        className={
+          compact ? "form__title form__title--small" : "form__title caps"
+        }
+        id={f("title")}
+      >
         {title}
       </h2>
       {intro && <p className="form__intro">{intro}</p>}
@@ -69,18 +84,37 @@ export default function EnquiryForm({
         </div>
         <div className="field">
           <label htmlFor={f("email")}>Email</label>
-          <input id={f("email")} name="email" type="email" autoComplete="email" required />
+          <input
+            id={f("email")}
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+          />
         </div>
-        <div className="field">
-          <label htmlFor={f("phone")}>
-            Phone <span className="field__opt">(optional)</span>
-          </label>
-          <input id={f("phone")} name="phone" type="tel" autoComplete="tel" inputMode="tel" />
-        </div>
-        {kind === "partner" ? (
+        {!compact && (
+          <div className="field">
+            <label htmlFor={f("phone")}>
+              Phone <span className="field__opt">(optional)</span>
+            </label>
+            <input
+              id={f("phone")}
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              inputMode="tel"
+            />
+          </div>
+        )}
+        {compact ? null : kind === "partner" ? (
           <div className="field">
             <label htmlFor={f("organisation")}>Organisation</label>
-            <input id={f("organisation")} name="organisation" autoComplete="organization" required />
+            <input
+              id={f("organisation")}
+              name="organisation"
+              autoComplete="organization"
+              required
+            />
           </div>
         ) : (
           <div className="field">
@@ -103,20 +137,27 @@ export default function EnquiryForm({
                 ? "What would you like to work on together?"
                 : "Your message"}
           </label>
-          <textarea id={f("message")} name="message" rows={5} required />
+          <textarea
+            id={f("message")}
+            name="message"
+            rows={compact ? 4 : 5}
+            required
+          />
         </div>
       </div>
 
       <div className="form__foot">
         <button className="button" type="submit">
-          Write to the Foundation
+          {compact ? "Send message" : "Write to the Foundation"}
         </button>
         <p className="form__status" role="status" aria-live="polite">
           {state === "opened"
             ? `Your email app should now be open with this message to ${ORG.email}. Press send there. If nothing opened, write to us at that address.`
             : state === "invalid"
               ? "Please fill in the fields marked as needed."
-              : `This opens your own email app, addressed to ${ORG.email}. Nothing is stored on this website.`}
+              : compact
+                ? "Opens your email app with this message. Nothing is stored here."
+                : `This opens your own email app, addressed to ${ORG.email}. Nothing is stored on this website.`}
         </p>
       </div>
     </form>

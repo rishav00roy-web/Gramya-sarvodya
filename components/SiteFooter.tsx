@@ -8,6 +8,7 @@ const LEGAL = [
   { href: "/legal/cookie-policy", label: "Cookie Policy" },
   { href: "/legal/accessibility", label: "Website Accessibility" },
   { href: "/legal/grievance-and-feedback", label: "Grievance and Feedback" },
+  { href: "/credits", label: "Photo credits" },
 ];
 
 /* The forest-green close of every page: the name set large, the tagline,
