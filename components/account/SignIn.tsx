@@ -19,7 +19,8 @@ export default function SignIn() {
       await signIn("email-otp", { email: address });
       setStep("code");
       setNote(`We sent a six-digit code to ${address}. It works for 15 minutes.`);
-    } catch {
+    } catch (err) {
+      console.error("Sign-in code not sent", err);
       setNote("We could not send a code just now. Check the address and try again.");
     } finally {
       setBusy(false);

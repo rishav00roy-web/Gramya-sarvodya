@@ -1,4 +1,5 @@
 import { Email } from "@convex-dev/auth/providers/Email";
+import { ConvexError } from "convex/values";
 
 /* Sign-in by a six-digit code sent to the member's email. The code lasts
    15 minutes; Convex Auth limits wrong guesses per hour.
@@ -27,7 +28,7 @@ function message(token: string) {
 
 async function viaBrevo(key: string, to: string, token: string) {
   const from = process.env.AUTH_EMAIL_FROM;
-  if (!from) throw new Error("AUTH_EMAIL_FROM is not set.");
+  if (!from) throw new ConvexError("AUTH_EMAIL_FROM is not set.");
   const m = message(token);
   return fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
@@ -68,7 +69,11 @@ export const EmailOTP = Email({
       : resend
         ? await viaResend(resend, email, token)
         : null;
-    if (!res) throw new Error("No email sender is configured.");
-    if (!res.ok) throw new Error(`Could not send the code: ${await res.text()}`);
+    // ConvexError keeps the reason visible in production, where plain
+    // errors are hidden; it never contains the API key.
+    if (!res) throw new ConvexError("No email sender is configured.");
+    if (!res.ok) {
+      throw new ConvexError(`Email service ${res.status}: ${(await res.text()).slice(0, 300)}`);
+    }
   },
 });
