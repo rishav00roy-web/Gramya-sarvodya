@@ -33,7 +33,7 @@ export default function ProgrammeCarousel() {
         </button>
       </div>
       <ul className="carousel__track" ref={track} tabIndex={0} aria-label="Programme cards">
-        {PROGRAMMES.map((p) => (
+        {PROGRAMMES.map((p, i) => (
           <li key={p.slug} className="carousel__card">
             <Link className="pcard" href={`/programmes/${p.slug}`} data-kubai-trigger>
               <span className="pcard__media">
@@ -45,7 +45,9 @@ export default function ProgrammeCarousel() {
                 />
               </span>
               <span className="pcard__top">
-                <span className="pcard__tag">Programme {p.letter}</span>
+                <span className="pcard__tag">
+                  {String(i + 1).padStart(2, "0")} of {PROGRAMMES.length}
+                </span>
                 <Icon name={p.icon} size={40} />
               </span>
               <span className="pcard__title">{p.title}</span>

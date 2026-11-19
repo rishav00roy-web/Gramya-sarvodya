@@ -10,7 +10,7 @@ import Publisher from "./Publisher";
    so the static build does not need the generated API types. */
 const api = anyApi;
 
-export type Profile = {
+type Profile = {
   email: string;
   name: string;
   phone: string;
@@ -61,7 +61,7 @@ export default function Dashboard() {
 
 /* The signed-in view on its own, given the profile and what to do on
    sign-out and save. */
-export function DashboardView({
+function DashboardView({
   me,
   onSignOut,
   onSave,

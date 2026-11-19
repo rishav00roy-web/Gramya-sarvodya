@@ -569,22 +569,54 @@ p {
   .bar__inner {
     gap: 1rem;
   }
+  /* The brand gives way first, so the login and menu buttons never get
+     pushed off a narrow screen or one with large text. */
+  .bar__brand {
+    flex: 0 1 auto;
+    min-width: 0;
+    gap: 0.6rem;
+  }
+  .bar__nav {
+    flex: none;
+  }
   .bar__seal {
-    width: 46px;
-    height: 46px;
+    width: 40px;
+    height: 40px;
   }
   .bar__spin {
     display: none;
   }
   .bar__emblem {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
   }
+  .bar__name {
+    min-width: 0;
+  }
+  /* The name is the logo here, so it keeps its size when the phone's text
+     is set larger; the buttons beside it still grow. */
   .bar__name-1 {
-    font-size: 1.05rem;
+    font-size: clamp(15px, 4.2vw, 17px);
   }
   .bar__name-2 {
-    font-size: 0.75rem;
+    font-size: 12px;
+  }
+  .bar__login {
+    min-height: 40px;
+    padding: 0.35rem 0.85rem;
+    border: 1.5px solid var(--forest);
+    background: transparent;
+    color: var(--forest);
+    font-size: 0.875rem;
+  }
+  .bar__login:hover,
+  .bar__login[aria-current="page"] {
+    background: var(--forest);
+    color: var(--on-dark);
+  }
+  /* The page's own title sits just below, so the trail stops at its parent. */
+  .crumbs li[aria-current]:not(:first-child) {
+    display: none;
   }
   .bar__toggle {
     width: 44px;
@@ -1222,13 +1254,11 @@ p {
   text-decoration-color: var(--leaf-bright);
 }
 @media (max-width: 900px) {
+  /* "View all" drops to its own line, and the arrows sit beside it. */
   .section__head:has(+ .carousel) {
+    flex-direction: column;
+    align-items: start;
     padding-right: 0;
-  }
-  .carousel__controls {
-    position: static;
-    justify-content: end;
-    margin-bottom: 1rem;
   }
 }
 
@@ -1720,34 +1750,6 @@ a.ways__item:hover {
     width: 72px;
     height: 72px;
   }
-}
-
-/* ---------- statement (kept for inner use) ---------- */
-.statement {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: center;
-  text-align: center;
-  padding-block: var(--space);
-}
-.statement__label {
-  color: var(--leaf);
-  margin-bottom: 1rem;
-}
-.statement__text {
-  max-width: 24ch;
-  font-size: clamp(2rem, 4.2vw, 3.6rem);
-  color: var(--forest);
-}
-.statement__word {
-  display: inline-block;
-}
-.statement__body {
-  display: grid;
-  gap: 1rem;
-  max-width: 62ch;
-  margin-top: 2rem;
-  color: var(--ink-soft);
 }
 
 /* ---------- about ---------- */

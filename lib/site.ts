@@ -93,22 +93,6 @@ export const HOME = {
   body: "We believe that the real progress of a nation begins with the development of its villages. Our approach combines traditional knowledge, local resources, community participation and modern innovation to build resilient and prosperous rural communities.",
 };
 
-/** The eleven focus areas named on the home page, each pointing at the
-    programme that carries it. */
-export const FOCUS_AREAS: { label: string; slug: string }[] = [
-  { label: "Sustainable Agriculture & Natural Farming", slug: "sustainable-agriculture" },
-  { label: "Farmer Producer Companies (FPC)", slug: "farmer-producer-company" },
-  { label: "Farm Field Schools", slug: "farm-field-school" },
-  { label: "Agro Tourism", slug: "agro-tourism" },
-  { label: "Green Education", slug: "green-education" },
-  { label: "Gramya Udyog – Rural Industries", slug: "gramya-udyog" },
-  { label: "Natural Wellness Initiatives", slug: "wellness" },
-  { label: "Community Financial Inclusion", slug: "financial-inclusion" },
-  { label: "Women's & Youth Empowerment", slug: "womens-empowerment" },
-  { label: "Environmental Conservation", slug: "environment" },
-  { label: "Waste-to-Wealth Initiatives", slug: "waste-to-wealth" },
-];
-
 export const ABOUT = {
   who: [
     "Gramya Sarvodaya Foundation is a rural development-oriented organization dedicated to promoting inclusive, sustainable and community-led development.",
