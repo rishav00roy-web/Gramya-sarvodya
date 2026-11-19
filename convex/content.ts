@@ -73,6 +73,16 @@ export const create = mutation({
     if (!title) throw new ConvexError("A title is needed.");
     if (!/^\d{4}-\d{2}-\d{2}$/.test(args.date)) throw new ConvexError("Use a real date.");
     if (args.kind === "gallery" && !args.fileId) throw new ConvexError("Choose a photograph.");
+    if (args.fileId) {
+      // The browser checks this too; this stops a PDF going up as a photo.
+      const file = await ctx.db.system.get(args.fileId);
+      const type = file?.contentType ?? "";
+      const ok = args.kind === "publication" ? type === "application/pdf" : type.startsWith("image/");
+      if (!ok)
+        throw new ConvexError(
+          args.kind === "publication" ? "Publications must be a PDF." : "Choose an image file.",
+        );
+    }
     const link = args.link ? clean(args.link, 500) : undefined;
     if (link && !/^https:\/\//.test(link)) throw new ConvexError("Links must start with https://");
     await ctx.db.insert("posts", {

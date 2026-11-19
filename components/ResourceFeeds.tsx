@@ -54,7 +54,7 @@ function Live() {
   return (
     <Feeds
       news={news ? [...news, LAUNCH] : undefined}
-      gallery={gallery}
+      gallery={gallery?.filter((g) => g.fileUrl)}
       publications={publications}
     />
   );
@@ -121,7 +121,7 @@ function Feeds({
               <li key={g.id}>
                 <figure>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={g.fileUrl ?? ""} alt={g.title} loading="lazy" />
+                  <img src={g.fileUrl!} alt={g.title} loading="lazy" />
                   <figcaption>
                     {g.title}
                     <time dateTime={g.date}>{when(g.date)}</time>

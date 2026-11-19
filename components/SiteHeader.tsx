@@ -53,10 +53,6 @@ export default function SiteHeader() {
   const [section, setSection] = useState<string | null>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const pathRef = useRef(pathname);
-  useEffect(() => {
-    pathRef.current = pathname;
-  }, [pathname]);
 
   const [lastPath, setLastPath] = useState(pathname);
   if (pathname !== lastPath) {
@@ -69,7 +65,7 @@ export default function SiteHeader() {
   useEffect(() => {
     if (!open) return;
     const y = window.scrollY;
-    const startPath = pathRef.current;
+    const startPath = window.location.pathname;
     const startHash = window.location.hash;
     const body = document.body.style;
     const html = document.documentElement;
@@ -97,6 +93,9 @@ export default function SiteHeader() {
       body.width = "";
       // Back to where the reader was, unless a menu link took them
       // somewhere else: a new page starts at its top, a new #section at it.
+      // The address bar is read here, not the pathname React holds, since
+      // this runs in the same commit that the new page arrives in.
+      const samePage = window.location.pathname === startPath;
       const hash = window.location.hash;
       const target =
         hash && hash !== startHash
@@ -105,10 +104,10 @@ export default function SiteHeader() {
       if (target) target.scrollIntoView({ behavior: "instant" });
       else
         window.scrollTo({
-          top: pathRef.current === startPath ? y : 0,
+          top: samePage ? y : 0,
           behavior: "instant",
         });
-      if (pathRef.current === startPath && !target)
+      if (samePage && !target)
         toggle?.focus({ preventScroll: true });
     };
   }, [open]);

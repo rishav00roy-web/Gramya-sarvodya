@@ -51,6 +51,8 @@ function Panel() {
       let fileId: string | undefined;
       if (file instanceof File && file.size > 0) {
         if (file.size > 10 * 1024 * 1024) throw new Error("Files must be under 10 MB.");
+        if (kind === "publication" ? file.type !== "application/pdf" : !file.type.startsWith("image/"))
+          throw new Error(kind === "publication" ? "Publications must be a PDF." : "Choose an image file.");
         const target = (await uploadUrl()) as string;
         const res = await fetch(target, {
           method: "POST",
@@ -92,7 +94,10 @@ function Panel() {
             <select
               id={f("kind")}
               value={kind}
-              onChange={(e) => setKind(e.target.value as Kind)}
+              onChange={(e) => {
+                setKind(e.target.value as Kind);
+                setState("idle");
+              }}
             >
               {KINDS.map(([v, label]) => (
                 <option key={v} value={v}>
@@ -126,6 +131,7 @@ function Panel() {
               {kind !== "gallery" && <span className="field__opt">(optional)</span>}
             </label>
             <input
+              key={kind}
               id={f("file")}
               name="file"
               type="file"
@@ -163,6 +169,7 @@ function Panel() {
 function Published() {
   const remove = useMutation(api.content.remove);
   const [confirm, setConfirm] = useState<string | null>(null);
+  const [failed, setFailed] = useState("");
   const lists = {
     news: useQuery(api.content.list, { kind: "news" }) as Item[] | undefined,
     gallery: useQuery(api.content.list, { kind: "gallery" }) as Item[] | undefined,
@@ -175,6 +182,11 @@ function Published() {
   return (
     <div className="published">
       <h3 className="published__title">Already published</h3>
+      {failed && (
+        <p className="form__status" role="alert">
+          {failed}
+        </p>
+      )}
       <ul>
         {all.map((i) => (
           <li key={i.id}>
@@ -191,7 +203,10 @@ function Published() {
                   className="alink alink--danger"
                   onClick={() => {
                     setConfirm(null);
-                    void remove({ id: i.id });
+                    setFailed("");
+                    remove({ id: i.id }).catch(() =>
+                      setFailed(`“${i.title}” was not removed. Please try again.`),
+                    );
                   }}
                 >
                   Yes, remove

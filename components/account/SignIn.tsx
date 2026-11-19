@@ -64,7 +64,8 @@ export default function SignIn() {
     setBusy(true);
     setNote("");
     try {
-      await signIn("email-otp", { email, code });
+      const { signingIn } = await signIn("email-otp", { email, code });
+      if (!signingIn) throw new Error("not signed in");
     } catch {
       setNote("That code did not work. Check it, or send a new one.");
       setBusy(false);

@@ -37,9 +37,20 @@ export default function Motion() {
         else timer = window.setTimeout(() => lenis.start(), 60);
       });
       watch.observe(html, { attributes: true, attributeFilter: ["data-menu"] });
+      // A link followed mid-glide must not carry the glide onto the next
+      // page, which opens at its top (or, going back, where it was left).
+      const settle = () => {
+        if (!lenis.isScrolling || lenis.isStopped) return;
+        lenis.stop();
+        lenis.start();
+      };
+      document.addEventListener("click", settle, true);
+      window.addEventListener("popstate", settle);
       cleanup = () => {
         window.clearTimeout(timer);
         watch.disconnect();
+        document.removeEventListener("click", settle, true);
+        window.removeEventListener("popstate", settle);
         lenis.destroy();
       };
     });
