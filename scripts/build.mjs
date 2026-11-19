@@ -43,7 +43,7 @@ if (!get("JWT_PRIVATE_KEY") || !get("JWKS")) {
 }
 
 // 2. Settings copied from Vercel to Convex, so they live in one place.
-const site = process.env.SITE_URL || "https://gramya-three.vercel.app";
+const site = process.env.SITE_URL || "https://www.gramyasarvodaya.org";
 if (get("SITE_URL") !== site) set("SITE_URL", site);
 for (const name of [
   "AUTH_BREVO_KEY",
