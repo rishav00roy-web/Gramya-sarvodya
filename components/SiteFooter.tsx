@@ -80,6 +80,7 @@ export default function SiteFooter() {
           <p className="footer__copy">
             © {ORG.year} {ORG.name}. All Rights Reserved.
           </p>
+          <p className="footer__credit">Designed and developed by Lios Labs</p>
         </div>
       </div>
     </footer>
