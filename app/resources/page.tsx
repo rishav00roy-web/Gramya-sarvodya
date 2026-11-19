@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Closing from "@/components/Closing";
 import PageHero from "@/components/PageHero";
-import Pending from "@/components/Pending";
+import ResourceFeeds from "@/components/ResourceFeeds";
 
 export const metadata: Metadata = {
   title: "Resources",
@@ -15,28 +15,7 @@ export default function ResourcesPage() {
         <p>News from the field, photographs from our villages, and what we publish.</p>
       </PageHero>
       <section className="section shell" aria-label="Resources">
-        <Pending
-          items={[
-            {
-              id: "news",
-              icon: "news",
-              title: "News",
-              text: "Announcements, events and stories from our programmes.",
-            },
-            {
-              id: "gallery",
-              icon: "gallery",
-              title: "Gallery",
-              text: "Photographs from farms, field schools, workshops and village enterprises.",
-            },
-            {
-              id: "publications",
-              icon: "publication",
-              title: "Publications",
-              text: "Guides, training material and papers on sustainable rural development.",
-            },
-          ]}
-        />
+        <ResourceFeeds />
       </section>
       <Closing />
     </>

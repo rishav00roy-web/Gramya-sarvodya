@@ -51,6 +51,7 @@ for (const name of [
   "AUTH_EMAIL_FROM",
   "AUTH_GOOGLE_ID",
   "AUTH_GOOGLE_SECRET",
+  "ADMIN_EMAILS",
 ]) {
   const value = process.env[name];
   if (value && get(name) !== value) {

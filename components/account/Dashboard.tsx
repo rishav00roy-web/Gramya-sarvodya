@@ -4,6 +4,7 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { useMutation, useQuery } from "convex/react";
 import { anyApi } from "convex/server";
 import { useId, useState, type FormEvent } from "react";
+import Publisher from "./Publisher";
 
 /* The site's code reaches the Convex functions in convex/profile.ts by name,
    so the static build does not need the generated API types. */
@@ -50,7 +51,12 @@ export default function Dashboard() {
       </div>
     );
   }
-  return <DashboardView me={me} onSignOut={() => void signOut()} onSave={update} />;
+  return (
+    <>
+      <DashboardView me={me} onSignOut={() => void signOut()} onSave={update} />
+      <Publisher />
+    </>
+  );
 }
 
 /* The signed-in view on its own, given the profile and what to do on

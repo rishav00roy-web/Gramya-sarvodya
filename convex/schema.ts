@@ -21,4 +21,15 @@ export default defineSchema({
   })
     .index("email", ["email"])
     .index("phone", ["phone"]),
+  /* What the Foundation publishes on the Resources page: news, gallery
+     photographs and publications, added by its admins from My Account. */
+  posts: defineTable({
+    kind: v.union(v.literal("news"), v.literal("gallery"), v.literal("publication")),
+    title: v.string(),
+    body: v.optional(v.string()),
+    date: v.string(),
+    fileId: v.optional(v.id("_storage")),
+    link: v.optional(v.string()),
+    by: v.id("users"),
+  }).index("kind_date", ["kind", "date"]),
 });

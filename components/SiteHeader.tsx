@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Badge from "@/components/Badge";
+import { AUTH_EVENT, hasStoredSession } from "@/components/account/convex";
 import { NAV, ORG, asset } from "@/lib/site";
 
 /* The header of every page, laid out the way large foundation sites lay
@@ -32,6 +33,20 @@ export default function SiteHeader() {
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  /* "Login", or "Log out" once a sign-in token is stored in this browser. */
+  const [signedIn, setSignedIn] = useState(false);
+  useEffect(() => {
+    const check = () => setSignedIn(hasStoredSession());
+    const frame = requestAnimationFrame(check);
+    window.addEventListener(AUTH_EVENT, check);
+    window.addEventListener("storage", check);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener(AUTH_EVENT, check);
+      window.removeEventListener("storage", check);
     };
   }, []);
 
@@ -166,19 +181,20 @@ export default function SiteHeader() {
               </li>
             ))}
           </ul>
-          <Link
-            className="bar__login"
-            href="/account"
-            aria-label="Member login"
-            aria-current={current("/account") ? "page" : undefined}
-          >
-            <span className="bar__login-long" aria-hidden="true">
-              Member login
-            </span>
-            <span className="bar__login-short" aria-hidden="true">
+          {signedIn ? (
+            // A full page load, so the account page signs out on arrival.
+            <a className="bar__login" href={asset("/account/?logout=1")}>
+              Log out
+            </a>
+          ) : (
+            <Link
+              className="bar__login"
+              href="/account"
+              aria-current={current("/account") ? "page" : undefined}
+            >
               Login
-            </span>
-          </Link>
+            </Link>
+          )}
           <Link className="bar__pill" href="/get-involved">
             Join us
           </Link>
@@ -289,9 +305,20 @@ export default function SiteHeader() {
         </ul>
 
         <div className="mnav__foot">
-          <Link className="button mnav__join" href="/account" onClick={close}>
-            Member login
-          </Link>
+          {signedIn ? (
+            <a className="button mnav__join" href={asset("/account/?logout=1")}>
+              Log out
+            </a>
+          ) : (
+            <Link className="button mnav__join" href="/account" onClick={close}>
+              Login
+            </Link>
+          )}
+          {signedIn && (
+            <Link className="mnav__account" href="/account" onClick={close}>
+              My account
+            </Link>
+          )}
           <Link
             className="button button--quiet mnav__join"
             href="/get-involved"
