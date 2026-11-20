@@ -2,8 +2,16 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import { ALL_PHOTOS } from "@/lib/photos";
 import { PROGRAMMES } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Photo credits" };
+export const metadata: Metadata = {
+  ...pageMeta({
+    title: "Photo credits",
+    description:
+      "Who took the photographs used on the Gramya Sarvodaya Foundation website, with links to each photographer.",
+    path: "/credits/",
+  }),
+};
 
 const labelFor = (use: string) =>
   PROGRAMMES.find((p) => p.slug === use)?.title ?? use;

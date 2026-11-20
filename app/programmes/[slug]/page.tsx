@@ -6,7 +6,9 @@ import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Photo from "@/components/Photo";
 import { PROGRAMME_PHOTOS } from "@/lib/photos";
+import JsonLd from "@/components/JsonLd";
 import { PROGRAMME_STATUS, PROGRAMMES, getProgramme } from "@/lib/site";
+import { breadcrumbSchema, pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return PROGRAMMES.map((p) => ({ slug: p.slug }));
@@ -21,7 +23,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const p = getProgramme(slug);
-  return p ? { title: p.title, description: p.intro[0] } : {};
+  return p ? pageMeta({ title: p.title, description: p.intro[0], path: `/programmes/${p.slug}/` }) : {};
 }
 
 /* Splits a title into two lines of capitals at its natural break. */
@@ -48,6 +50,12 @@ export default async function ProgrammePage({ params }: { params: Promise<{ slug
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Our Programmes", path: "/programmes/" },
+          { name: p.title, path: `/programmes/${p.slug}/` },
+        ])}
+      />
       <PageHero
         trail={[{ href: "/programmes", label: "Our Programmes" }]}
         label={p.short}

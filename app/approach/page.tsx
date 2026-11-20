@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import Closing from "@/components/Closing";
 import PageHero from "@/components/PageHero";
 import { APPROACH, VALUES } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Our Approach",
-  description:
-    "A community-centred development model that combines local knowledge, scientific understanding and collective action.",
+  ...pageMeta({
+    title: "Our Approach",
+    description:
+      "A community-centred development model that combines local knowledge, scientific understanding and collective action.",
+    path: "/approach/",
+  }),
 };
 
 export default function ApproachPage() {

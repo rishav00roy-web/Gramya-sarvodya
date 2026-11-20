@@ -2,10 +2,15 @@ import type { Metadata } from "next";
 import Closing from "@/components/Closing";
 import PageHero from "@/components/PageHero";
 import Pending from "@/components/Pending";
+import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Our Impact",
-  description: "Projects, activities and reports from Gramya Sarvodaya Foundation.",
+  ...pageMeta({
+    title: "Our Impact",
+    description:
+      "Where Gramya Sarvodaya Foundation will publish its projects, activities and reports as its programmes in rural communities begin.",
+    path: "/impact/",
+  }),
 };
 
 export default function ImpactPage() {

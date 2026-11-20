@@ -3,10 +3,14 @@ import EnquiryForm from "@/components/EnquiryForm";
 import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import { ORG, PROGRAMMES } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description: `Write to ${ORG.email} or call ${ORG.phone}.`,
+  ...pageMeta({
+    title: "Contact Us",
+    description: `Contact ${ORG.name} in Jorhat, Assam. Write to ${ORG.email} or call ${ORG.phone}.`,
+    path: "/contact/",
+  }),
 };
 
 export default function ContactPage() {

@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import AccountApp from "@/components/account/AccountApp";
 import PageHero from "@/components/PageHero";
+import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "My Account",
-  description: "Sign in with a code sent to your email and keep your profile up to date.",
-  robots: { index: false },
+  ...pageMeta({
+    title: "My Account",
+    description: "Sign in with a code sent to your email and keep your profile up to date.",
+    path: "/account/",
+  }),
+  robots: { index: false, follow: true },
 };
 
 export default function AccountPage() {

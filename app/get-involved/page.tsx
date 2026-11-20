@@ -3,11 +3,15 @@ import EnquiryForm from "@/components/EnquiryForm";
 import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import { JOIN, PARTNERS, PROGRAMMES } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Get Involved",
-  description:
-    "Volunteer, partner with us, support rural entrepreneurs or become a community supporter of Gramya Sarvodaya Foundation.",
+  ...pageMeta({
+    title: "Get Involved",
+    description:
+      "Volunteer, partner with us, support rural entrepreneurs or become a community supporter of Gramya Sarvodaya Foundation.",
+    path: "/get-involved/",
+  }),
 };
 
 export default function GetInvolvedPage() {
