@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Closing from "@/components/Closing";
 import FocusStrip from "@/components/FocusStrip";
 import Icon from "@/components/Icon";
 import Photo from "@/components/Photo";
+import JsonLd from "@/components/JsonLd";
 import ProgrammeCarousel from "@/components/ProgrammeCarousel";
 import { HERO_PHOTO, PHILOSOPHY_PHOTO } from "@/lib/photos";
 import {
@@ -18,24 +20,63 @@ import {
   VISION,
   asset,
 } from "@/lib/site";
+import { HOME_DESCRIPTION, SHARE_IMAGE, pageMeta } from "@/lib/seo";
 
-const organizationSchema = {
+export const metadata: Metadata = pageMeta({
+  title: `${ORG.name} – ${ORG.motto}`,
+  absoluteTitle: true,
+  description: HOME_DESCRIPTION,
+  path: "/",
+});
+
+/* Who the Foundation is, for search engines: the organisation, its
+   website, and what it does. Only facts the site already states. */
+const homeSchema = {
   "@context": "https://schema.org",
-  "@type": "NGO",
-  name: ORG.name,
-  slogan: ORG.motto,
-  url: ORG.url,
-  email: ORG.email,
-  telephone: ORG.phone,
-  description: INTRO,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Bhatemora, Pulibor",
-    addressLocality: "Jorhat",
-    addressRegion: "Assam",
-    postalCode: "785006",
-    addressCountry: "IN",
-  },
+  "@graph": [
+    {
+      "@type": "NGO",
+      "@id": `${ORG.url}/#organization`,
+      name: ORG.name,
+      alternateName: ORG.short,
+      slogan: ORG.motto,
+      url: `${ORG.url}/`,
+      logo: {
+        "@type": "ImageObject",
+        url: `${ORG.url}/media/gsf-seal.webp`,
+        width: 256,
+        height: 256,
+      },
+      image: `${ORG.url}${SHARE_IMAGE.url}`,
+      email: ORG.email,
+      telephone: ORG.phoneHref.replace("tel:", ""),
+      description: INTRO,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Bhatemora, Pulibor",
+        addressLocality: "Jorhat",
+        addressRegion: "Assam",
+        postalCode: "785006",
+        addressCountry: "IN",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "general enquiries",
+        email: ORG.email,
+        telephone: ORG.phoneHref.replace("tel:", ""),
+        availableLanguage: ["en"],
+      },
+      knowsAbout: PROGRAMMES.map((p) => p.title),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${ORG.url}/#website`,
+      name: ORG.name,
+      url: `${ORG.url}/`,
+      inLanguage: "en-IN",
+      publisher: { "@id": `${ORG.url}/#organization` },
+    },
+  ],
 };
 
 /* What the Foundation's own plan contains, counted. These are the sizes of
@@ -63,10 +104,7 @@ const keepWords = (text: string) =>
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
+      <JsonLd data={homeSchema} />
 
       <FocusStrip />
 

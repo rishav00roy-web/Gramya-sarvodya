@@ -2,10 +2,15 @@ import type { Metadata } from "next";
 import Closing from "@/components/Closing";
 import PageHero from "@/components/PageHero";
 import ResourceFeeds from "@/components/ResourceFeeds";
+import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Resources",
-  description: "News, gallery and publications from Gramya Sarvodaya Foundation.",
+  ...pageMeta({
+    title: "Resources",
+    description:
+      "News, photo gallery and publications from Gramya Sarvodaya Foundation, a rural development organisation in Jorhat, Assam.",
+    path: "/resources/",
+  }),
 };
 
 export default function ResourcesPage() {

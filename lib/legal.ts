@@ -7,6 +7,8 @@ import { LEGAL_PENDING, ORG } from "@/lib/site";
 export type LegalDoc = {
   slug: string;
   title: string;
+  /** For search results and link previews only. */
+  description: string;
   lines: [string, string];
   sections: { heading: string; body: string[] }[];
 };
@@ -17,6 +19,8 @@ export const LEGAL: LegalDoc[] = [
   {
     slug: "privacy-policy",
     title: "Privacy Policy",
+    description:
+      "How the Gramya Sarvodaya Foundation website handles personal information, from its enquiry forms to optional member accounts.",
     lines: ["Privacy", "policy"],
     sections: [
       {
@@ -50,6 +54,8 @@ export const LEGAL: LegalDoc[] = [
   {
     slug: "terms-and-conditions",
     title: "Terms and Conditions",
+    description:
+      "The terms for using the Gramya Sarvodaya Foundation website, including sharing and reusing its text, emblem and images.",
     lines: ["Terms and", "conditions"],
     sections: [
       {
@@ -73,6 +79,8 @@ export const LEGAL: LegalDoc[] = [
   {
     slug: "disclaimer",
     title: "Disclaimer",
+    description:
+      "The information on the Gramya Sarvodaya Foundation website is shared in good faith for general awareness and is not professional advice.",
     lines: ["Website", "disclaimer"],
     sections: [
       {
@@ -98,6 +106,8 @@ export const LEGAL: LegalDoc[] = [
   {
     slug: "cookie-policy",
     title: "Cookie Policy",
+    description:
+      "The Gramya Sarvodaya Foundation website sets no cookies of its own and uses no advertising or tracking cookies.",
     lines: ["Cookie", "policy"],
     sections: [
       {
@@ -113,6 +123,8 @@ export const LEGAL: LegalDoc[] = [
   {
     slug: "accessibility",
     title: "Website Accessibility",
+    description:
+      "How the Gramya Sarvodaya Foundation website is built to be read and used by everyone, with WCAG 2.2 AA in mind, and how to report a barrier.",
     lines: ["Website", "accessibility"],
     sections: [
       {
@@ -132,6 +144,8 @@ export const LEGAL: LegalDoc[] = [
   {
     slug: "grievance-and-feedback",
     title: "Grievance and Feedback",
+    description:
+      "How to raise a concern, complaint or suggestion about Gramya Sarvodaya Foundation's work or its website.",
     lines: ["Grievance", "& feedback"],
     sections: [
       {

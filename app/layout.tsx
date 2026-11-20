@@ -3,7 +3,8 @@ import { Noto_Serif, Noto_Sans, Pinyon_Script } from "next/font/google";
 import Motion from "@/components/Motion";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import { ORG, INTRO } from "@/lib/site";
+import { ORG } from "@/lib/site";
+import { HOME_DESCRIPTION, SHARE_IMAGE } from "@/lib/seo";
 import "./globals.css";
 
 // A book serif for headings, set in sentence case: the voice of an
@@ -37,14 +38,17 @@ export const metadata: Metadata = {
     default: `${ORG.name} – ${ORG.motto}`,
     template: `%s · ${ORG.name}`,
   },
-  description: INTRO,
+  description: HOME_DESCRIPTION,
+  applicationName: ORG.name,
   openGraph: {
     type: "website",
+    locale: "en_IN",
     siteName: ORG.name,
     title: `${ORG.name} – ${ORG.motto}`,
-    description: ORG.tagline,
-    images: [{ url: "/media/gsf-sunrise.webp", width: 1600, height: 900 }],
+    description: HOME_DESCRIPTION,
+    images: [SHARE_IMAGE],
   },
+  twitter: { card: "summary_large_image", images: [SHARE_IMAGE.url] },
   robots: { index: true, follow: true },
 };
 

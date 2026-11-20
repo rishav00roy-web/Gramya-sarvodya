@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PageHero from "@/components/PageHero";
 import { LEGAL, getLegal } from "@/lib/legal";
+import JsonLd from "@/components/JsonLd";
 import { LEGAL_PENDING } from "@/lib/site";
+import { breadcrumbSchema, pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return LEGAL.map((d) => ({ slug: d.slug }));
@@ -13,7 +15,7 @@ export const dynamicParams = false;
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const doc = getLegal(slug);
-  return doc ? { title: doc.title } : {};
+  return doc ? pageMeta({ title: doc.title, description: doc.description, path: `/legal/${doc.slug}/` }) : {};
 }
 
 export default async function LegalPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -23,6 +25,7 @@ export default async function LegalPage({ params }: { params: Promise<{ slug: st
 
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: doc.title, path: `/legal/${doc.slug}/` }])} />
       <PageHero label={doc.title} lines={doc.lines} />
       <article className="section shell legal">
         {doc.sections.map((s) => (

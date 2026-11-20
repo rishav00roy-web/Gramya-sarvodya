@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import Closing from "@/components/Closing";
 import PageHero from "@/components/PageHero";
 import { ABOUT, MISSION, PRINCIPLES, VISION, asset } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About Us",
-  description: ABOUT.who[0],
+  ...pageMeta({
+    title: "About Us",
+    description: ABOUT.who[0],
+    path: "/about/",
+  }),
 };
 
 export default function AboutPage() {
