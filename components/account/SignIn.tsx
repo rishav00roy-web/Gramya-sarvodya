@@ -117,7 +117,7 @@ export default function SignIn() {
               defaultValue={email}
             />
           </div>
-          <button className="button" type="submit" disabled={busy}>
+          <button className="button" type="submit" disabled={busy} aria-busy={busy}>
             {busy ? "Sending code…" : "Send me a code"}
           </button>
         </form>
@@ -140,7 +140,7 @@ export default function SignIn() {
               autoFocus
             />
           </div>
-          <button className="button" type="submit" disabled={busy}>
+          <button className="button" type="submit" disabled={busy} aria-busy={busy}>
             {busy ? "Signing in…" : "Sign in"}
           </button>
           <div className="aform__links">

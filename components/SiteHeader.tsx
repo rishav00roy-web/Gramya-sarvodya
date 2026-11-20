@@ -304,12 +304,15 @@ export default function SiteHeader() {
         </ul>
 
         <div className="mnav__foot">
+          <Link className="button mnav__join" href="/get-involved" onClick={close}>
+            Join us
+          </Link>
           {signedIn ? (
-            <a className="button mnav__join" href={asset("/account/?logout=1")}>
+            <a className="button button--quiet mnav__join" href={asset("/account/?logout=1")}>
               Log out
             </a>
           ) : (
-            <Link className="button mnav__join" href="/account" onClick={close}>
+            <Link className="button button--quiet mnav__join" href="/account" onClick={close}>
               Login
             </Link>
           )}
@@ -318,13 +321,6 @@ export default function SiteHeader() {
               My account
             </Link>
           )}
-          <Link
-            className="button button--quiet mnav__join"
-            href="/get-involved"
-            onClick={close}
-          >
-            Join us
-          </Link>
           <a href={`mailto:${ORG.email}`}>{ORG.email}</a>
           <a href={ORG.phoneHref}>{ORG.phone}</a>
         </div>

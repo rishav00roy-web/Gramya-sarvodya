@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ApproachPage() {
   return (
     <>
-      <PageHero label="Our Approach" lines={["Community", "centred"]} script="together">
+      <PageHero label="Our Approach" lines={["Community", "centred"]}>
         <p>We follow a community-centred development model.</p>
       </PageHero>
 

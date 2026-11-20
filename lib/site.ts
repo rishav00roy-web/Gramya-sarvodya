@@ -227,7 +227,6 @@ export type IconName =
 
 export type Programme = {
   slug: string;
-  letter: string;
   title: string;
   short: string;
   icon: IconName;
@@ -241,7 +240,6 @@ export type Programme = {
 export const PROGRAMMES: Programme[] = [
   {
     slug: "sustainable-agriculture",
-    letter: "A",
     title: "Sustainable Agriculture & Natural Farming",
     short: "Natural Farming",
     icon: "agriculture",
@@ -268,7 +266,6 @@ export const PROGRAMMES: Programme[] = [
   },
   {
     slug: "farmer-producer-company",
-    letter: "B",
     title: "Farmer Producer Company (FPC) Support",
     short: "Farmer Producer Companies",
     icon: "fpc",
@@ -303,7 +300,6 @@ export const PROGRAMMES: Programme[] = [
   },
   {
     slug: "farm-field-school",
-    letter: "C",
     title: "Farm Field School (FFS)",
     short: "Farm Field Schools",
     icon: "ffs",
@@ -329,7 +325,6 @@ export const PROGRAMMES: Programme[] = [
   },
   {
     slug: "agro-tourism",
-    letter: "D",
     title: "Agro Tourism",
     short: "Agro Tourism",
     icon: "tourism",
@@ -369,7 +364,6 @@ export const PROGRAMMES: Programme[] = [
   },
   {
     slug: "green-education",
-    letter: "E",
     title: "Green Education",
     short: "Green Education",
     icon: "education",
@@ -397,7 +391,6 @@ export const PROGRAMMES: Programme[] = [
   },
   {
     slug: "gramya-udyog",
-    letter: "F",
     title: "Gramya Udyog – Rural Industries",
     short: "Gramya Udyog",
     icon: "udyog",
@@ -438,7 +431,6 @@ export const PROGRAMMES: Programme[] = [
   },
   {
     slug: "wellness",
-    letter: "G",
     title: "Natural Wellness Initiative",
     short: "Natural Wellness",
     icon: "wellness",
@@ -471,7 +463,6 @@ export const PROGRAMMES: Programme[] = [
   },
   {
     slug: "financial-inclusion",
-    letter: "H",
     title: "Community Financial Inclusion",
     short: "Financial Inclusion",
     icon: "finance",
@@ -504,7 +495,6 @@ export const PROGRAMMES: Programme[] = [
   },
   {
     slug: "womens-empowerment",
-    letter: "I",
     title: "Women's Empowerment",
     short: "Women's Empowerment",
     icon: "women",
@@ -529,7 +519,6 @@ export const PROGRAMMES: Programme[] = [
   },
   {
     slug: "youth-empowerment",
-    letter: "J",
     title: "Youth Empowerment & Skill Development",
     short: "Youth & Skills",
     icon: "youth",
@@ -555,7 +544,6 @@ export const PROGRAMMES: Programme[] = [
   },
   {
     slug: "environment",
-    letter: "K",
     title: "Environmental Conservation & Renewable Energy",
     short: "Environment & Energy",
     icon: "environment",
@@ -581,7 +569,6 @@ export const PROGRAMMES: Programme[] = [
   },
   {
     slug: "waste-to-wealth",
-    letter: "L",
     title: "Waste-to-Wealth & Circular Economy",
     short: "Waste-to-Wealth",
     icon: "waste",

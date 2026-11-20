@@ -2,13 +2,11 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 /* The opening of every inner page, on a rounded forest card: a breadcrumb,
-   the page's name in capitals, a script word hung from its right edge, and
-   one sentence. */
+   the page's name, and one sentence. */
 export default function PageHero({
   trail = [],
   label,
   lines,
-  script,
   children,
   aside,
 }: {
@@ -16,7 +14,6 @@ export default function PageHero({
   trail?: { href: string; label: string }[];
   label: string;
   lines: string[];
-  script?: string;
   children?: ReactNode;
   aside?: ReactNode;
 }) {
@@ -34,18 +31,11 @@ export default function PageHero({
               <li aria-current="page">{label}</li>
             </ol>
           </nav>
-          <div className="lockup">
-            <h1 className="phero__title caps">
-              {lines.map((line) => (
-                <span key={line}>{line}</span>
-              ))}
-            </h1>
-            {script && (
-              <p className="lockup__script script" aria-hidden="true">
-                {script}
-              </p>
-            )}
-          </div>
+          <h1 className="phero__title caps">
+            {lines.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </h1>
           {children && <div className="phero__lede">{children}</div>}
         </div>
         {aside && <div className="phero__aside">{aside}</div>}

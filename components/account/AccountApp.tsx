@@ -7,6 +7,7 @@ import { ORG } from "@/lib/site";
 import Dashboard from "./Dashboard";
 import SignIn from "./SignIn";
 import { AUTH_EVENT, ConvexShell, hasConvex } from "./convex";
+import Skeleton from "@/components/Skeleton";
 
 /* The account area runs entirely in the browser and talks to Convex, so the
    rest of the site stays a static export. Until the Convex deployment is
@@ -53,11 +54,7 @@ function Gate() {
   }, [isLoading, isAuthenticated]);
 
   if (isLoading) {
-    return (
-      <p className="acard__text" role="status">
-        Checking whether you are signed in…
-      </p>
-    );
+    return <Skeleton label="Checking whether you are signed in…" />;
   }
   return isAuthenticated ? <Dashboard /> : <SignIn />;
 }

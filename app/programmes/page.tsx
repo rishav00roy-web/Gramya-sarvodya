@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ProgrammesPage() {
   return (
     <>
-      <PageHero label="Our Programmes" lines={["Twelve", "initiatives"]} script="for all">
+      <PageHero label="Our Programmes" lines={["Twelve", "initiatives"]}>
         <p>{MISSION[0]} {MISSION[1]} {MISSION[2]}</p>
       </PageHero>
       <section className="section shell" aria-label="All programmes">

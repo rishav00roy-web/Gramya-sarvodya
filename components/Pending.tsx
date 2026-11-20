@@ -12,7 +12,7 @@ export default function Pending({
     <ul className="pending">
       {items.map((item) => (
         <li key={item.id} id={item.id} className="pending__item">
-          <Icon name={item.icon} size={34} trigger="hover" />
+          <Icon name={item.icon} size={36} trigger="hover" />
           <h2 className="pending__title caps">{item.title}</h2>
           <p>{item.text}</p>
           <p className="pending__status">Nothing published yet.</p>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/Icon";
 import Photo from "@/components/Photo";
 import { PROGRAMME_PHOTOS } from "@/lib/photos";
@@ -13,6 +13,26 @@ import { PROGRAMMES } from "@/lib/site";
    Plain scroll-snap underneath, so it also swipes, scrolls and tabs. */
 export default function ProgrammeCarousel() {
   const track = useRef<HTMLUListElement>(null);
+  // Which ends the row has reached, so the arrow that can go no further
+  // says so instead of doing nothing when pressed.
+  const [ends, setEnds] = useState({ start: true, end: false });
+
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+    const check = () =>
+      setEnds({
+        start: el.scrollLeft <= 4,
+        end: el.scrollLeft + el.clientWidth >= el.scrollWidth - 4,
+      });
+    check();
+    el.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      el.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, []);
 
   const move = (dir: 1 | -1) => {
     const el = track.current;
@@ -25,15 +45,15 @@ export default function ProgrammeCarousel() {
   return (
     <div className="carousel">
       <div className="carousel__controls">
-        <button type="button" className="carousel__btn" onClick={() => move(-1)} aria-label="Previous programmes">
+        <button type="button" className="carousel__btn" onClick={() => move(-1)} aria-disabled={ends.start} aria-label="Previous programmes">
           <span aria-hidden="true" className="carousel__chev carousel__chev--prev" />
         </button>
-        <button type="button" className="carousel__btn" onClick={() => move(1)} aria-label="Next programmes">
+        <button type="button" className="carousel__btn" onClick={() => move(1)} aria-disabled={ends.end} aria-label="Next programmes">
           <span aria-hidden="true" className="carousel__chev" />
         </button>
       </div>
       <ul className="carousel__track" ref={track} tabIndex={0} aria-label="Programme cards">
-        {PROGRAMMES.map((p, i) => (
+        {PROGRAMMES.map((p) => (
           <li key={p.slug} className="carousel__card">
             <Link className="pcard" href={`/programmes/${p.slug}`} data-kubai-trigger>
               <span className="pcard__media">
@@ -44,12 +64,7 @@ export default function ProgrammeCarousel() {
                   sizes="(max-width: 600px) 82vw, (max-width: 1100px) 45vw, 300px"
                 />
               </span>
-              <span className="pcard__top">
-                <span className="pcard__tag">
-                  {String(i + 1).padStart(2, "0")} of {PROGRAMMES.length}
-                </span>
-                <Icon name={p.icon} size={40} />
-              </span>
+              <Icon name={p.icon} size={36} />
               <span className="pcard__title">{p.title}</span>
               <span className="pcard__text">{p.intro[0]}</span>
               <span className="pcard__more">Read more</span>

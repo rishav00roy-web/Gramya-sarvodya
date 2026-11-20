@@ -149,10 +149,15 @@ function Panel() {
           )}
         </div>
         <div className="form__foot">
-          <button className="button" type="submit" disabled={state === "saving"}>
+          <button className="button" type="submit" disabled={state === "saving"} aria-busy={state === "saving"}>
             {state === "saving" ? "Publishing…" : "Publish"}
           </button>
-          <p className="form__status" role="status" aria-live="polite">
+          <p
+            className="form__status"
+            data-state={state === "saved" || state === "idle" || state === "saving" ? state : "error"}
+            role="status"
+            aria-live="polite"
+          >
             {state === "saved"
               ? "Published. It is on the Resources page now."
               : state === "idle" || state === "saving"

@@ -26,7 +26,7 @@ export default function GetInvolvedPage() {
           {JOIN.map((w) => (
             <li key={w.id} id={w.id}>
               <div className="ways__item" data-kubai-trigger>
-                <Icon name={w.icon} size={34} />
+                <Icon name={w.icon} size={36} />
                 <h2 className="ways__title">{w.title}</h2>
                 <p className="ways__text">{w.text}</p>
               </div>

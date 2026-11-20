@@ -150,7 +150,12 @@ export default function EnquiryForm({
         <button className="button" type="submit">
           {compact ? "Send message" : "Write to the Foundation"}
         </button>
-        <p className="form__status" role="status" aria-live="polite">
+        <p
+          className="form__status"
+          data-state={state}
+          role="status"
+          aria-live="polite"
+        >
           {state === "opened"
             ? `Your email app should now be open with this message to ${ORG.email}. Press send there. If nothing opened, write to us at that address.`
             : state === "invalid"

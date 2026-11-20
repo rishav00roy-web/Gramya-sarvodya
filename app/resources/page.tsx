@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function ResourcesPage() {
   return (
     <>
-      <PageHero label="Resources" lines={["News", "& publications"]} script="learn">
+      <PageHero label="Resources" lines={["News", "& publications"]}>
         <p>News from the field, photographs from our villages, and what we publish.</p>
       </PageHero>
       <section className="section shell" aria-label="Resources">

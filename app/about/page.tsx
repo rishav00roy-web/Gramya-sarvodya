@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHero label="About Us" lines={["Who", "we are"]} script="Gramya">
+      <PageHero label="About Us" lines={["Who", "we are"]}>
         <p>{ABOUT.who[0]}</p>
       </PageHero>
 

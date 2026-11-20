@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function ImpactPage() {
   return (
     <>
-      <PageHero label="Our Impact" lines={["Projects", "& reports"]} script="Satya">
+      <PageHero label="Our Impact" lines={["Projects", "& reports"]}>
         <p>Truth and transparency: we publish what we do, as it is documented.</p>
       </PageHero>
       <section className="section shell" aria-label="Impact">

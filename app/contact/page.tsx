@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <PageHero label="Contact" lines={["Gramya Sarvodaya", "Foundation"]} script={ORG.motto}>
+      <PageHero label="Contact" lines={["Gramya Sarvodaya", "Foundation"]}>
         <p>
           For partnerships, volunteering, project collaboration, rural development initiatives and
           general enquiries, please contact us.
@@ -23,28 +23,28 @@ export default function ContactPage() {
         <ul className="contact__ways">
           <li>
             <a className="contact__way" href={`mailto:${ORG.email}`} data-kubai-trigger>
-              <Icon name="mail" size={34} />
+              <Icon name="mail" size={36} />
               <span className="contact__term">Email</span>
               <span className="contact__value">{ORG.email}</span>
             </a>
           </li>
           <li>
             <a className="contact__way" href={ORG.phoneHref} data-kubai-trigger>
-              <Icon name="phone" size={34} />
+              <Icon name="phone" size={36} />
               <span className="contact__term">Contact number</span>
               <span className="contact__value">{ORG.phone}</span>
             </a>
           </li>
           <li>
             <a className="contact__way" href={ORG.url} data-kubai-trigger>
-              <Icon name="globe" size={34} />
+              <Icon name="globe" size={36} />
               <span className="contact__term">Website</span>
               <span className="contact__value">{ORG.website}</span>
             </a>
           </li>
           <li>
             <div className="contact__way" data-kubai-trigger>
-              <Icon name="pin" size={34} />
+              <Icon name="pin" size={36} />
               <span className="contact__term">Office address</span>
               <address className="contact__value">
                 {ORG.office.map((l) => (

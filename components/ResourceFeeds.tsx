@@ -2,6 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { anyApi } from "convex/server";
+import Skeleton from "@/components/Skeleton";
 import Icon from "@/components/Icon";
 import { ConvexShell, hasConvex } from "@/components/account/convex";
 import { ORG } from "@/lib/site";
@@ -73,7 +74,7 @@ function Feeds({
     <div className="feeds">
       <section id="news" className="feed" aria-labelledby="news-title">
         <header className="feed__head">
-          <Icon name="news" size={34} trigger="hover" />
+          <Icon name="news" size={36} trigger="hover" />
           <h2 className="feed__title caps" id="news-title">
             News
           </h2>
@@ -108,7 +109,7 @@ function Feeds({
 
       <section id="gallery" className="feed" aria-labelledby="gallery-title">
         <header className="feed__head">
-          <Icon name="gallery" size={34} trigger="hover" />
+          <Icon name="gallery" size={36} trigger="hover" />
           <h2 className="feed__title caps" id="gallery-title">
             Gallery
           </h2>
@@ -137,7 +138,7 @@ function Feeds({
 
       <section id="publications" className="feed" aria-labelledby="pub-title">
         <header className="feed__head">
-          <Icon name="publication" size={34} trigger="hover" />
+          <Icon name="publication" size={36} trigger="hover" />
           <h2 className="feed__title caps" id="pub-title">
             Publications
           </h2>
@@ -177,11 +178,7 @@ function Feeds({
 }
 
 function Loading() {
-  return (
-    <p className="feed__empty" role="status">
-      Loading…
-    </p>
-  );
+  return <Skeleton />;
 }
 
 function Empty({ text }: { text: string }) {

@@ -102,6 +102,10 @@
   --gap: clamp(1.25rem, 3vw, 2.5rem);
   --bar: 80px;
   --radius: 18px;
+  /* Panels that hold other boxes. Anything set inside one takes the panel's
+     radius less the padding between them (--inner), so corners nest. */
+  --radius-lg: calc(var(--radius) * 1.5);
+  --radius-sm: 10px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
   color-scheme: light;
@@ -172,6 +176,16 @@ p {
   text-wrap: pretty;
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
+/* Phone numbers, dates and counts keep their digits in even columns. */
+a[href^="tel:"],
+time {
+  font-variant-numeric: tabular-nums;
+}
+
 .shell {
   width: 100%;
   max-width: calc(var(--max) + 2 * var(--gutter));
@@ -227,28 +241,11 @@ p {
 .band__deck {
   margin-top: -0.25rem;
   margin-bottom: 1rem;
-  font-family: var(--font-display-stack);
-  font-style: italic;
-  font-size: 1.0625rem;
+  font-weight: 600;
+  font-size: 1rem;
   color: var(--leaf-deep);
 }
 
-.lockup {
-  display: grid;
-  justify-items: start;
-  width: fit-content;
-  max-width: 100%;
-}
-.lockup__script {
-  justify-self: end;
-  margin-top: -0.1em;
-  font-size: clamp(2.2rem, 4vw, 3.6rem);
-  color: var(--sprout);
-  transform: rotate(-4deg);
-  transform-origin: right center;
-  max-width: 100%;
-  text-align: right;
-}
 
 /* ---------- controls ---------- */
 .button {
@@ -475,35 +472,40 @@ p {
   align-items: center;
   min-height: 44px;
   padding: 0.5rem 1.35rem;
-  border: 1.5px solid var(--forest);
   border-radius: 999px;
+  background: var(--forest);
   font-weight: 600;
   font-size: 0.9375rem;
-  color: var(--forest);
-  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+  color: var(--on-dark);
+  transition: background-color 0.2s var(--ease), transform 0.2s var(--ease);
 }
 .bar__pill:hover {
-  background: var(--forest);
-  color: var(--on-dark);
+  background: var(--forest-deep);
 }
-/* The member login: a filled pill beside "Join us" on a wide screen, and a
-   short "Login" pill beside the menu button on a phone or tablet. */
+.bar__pill:active,
+.bar__login:active {
+  transform: translateY(1px);
+}
+/* The member login: a quiet outline beside the filled "Join us", which is
+   the one thing the header asks a visitor to do. On a phone or tablet it
+   sits beside the menu button. */
 .bar__login {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   padding: 0.5rem 1.2rem;
+  border: 1.5px solid var(--forest);
   border-radius: 999px;
-  background: var(--forest);
-  color: var(--on-dark);
+  color: var(--forest);
   font-size: 0.9375rem;
   font-weight: 600;
   white-space: nowrap;
-  transition: background-color 0.2s var(--ease);
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
 }
 .bar__login:hover,
 .bar__login[aria-current="page"] {
-  background: var(--forest-deep);
+  background: var(--forest);
+  color: var(--on-dark);
 }
 .bar__toggle {
   display: none;
@@ -812,9 +814,10 @@ p {
   grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
   align-items: center;
   gap: clamp(1.5rem, 4vw, 3.5rem);
-  padding: clamp(1.25rem, 3.5vw, 3rem);
-  border-radius: calc(var(--radius) * 1.5);
-  box-shadow: 0 24px 60px var(--shadow-strong);
+  --pad: clamp(1.25rem, 3.5vw, 3rem);
+  --inner: max(6px, calc(var(--radius-lg) - var(--pad)));
+  padding: var(--pad);
+  border-radius: var(--radius-lg);
 }
 .hero__words {
   display: grid;
@@ -824,8 +827,7 @@ p {
 .hero__kicker {
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   color: var(--sprout);
-  transform: rotate(-3deg);
-  margin-bottom: -0.1em;
+  margin-bottom: 0.1em;
 }
 .hero__title {
   font-size: clamp(3.2rem, 7vw, 6.25rem);
@@ -847,7 +849,7 @@ p {
 }
 .hero__media .photo {
   aspect-ratio: 4 / 3;
-  border-radius: var(--radius);
+  border-radius: var(--inner);
 }
 @media (max-width: 900px) {
   .hero__card {
@@ -866,7 +868,6 @@ p {
   }
   .hero__card {
     gap: 1.25rem;
-    box-shadow: none;
   }
   .hero__media {
     order: 0;
@@ -879,8 +880,6 @@ p {
   }
   .hero__kicker {
     font-size: 1.5rem;
-    transform: none;
-    margin-bottom: 0.1em;
   }
   .hero__lede {
     margin-top: 0.85rem;
@@ -915,17 +914,9 @@ p {
   width: clamp(64px, 6.2vw, 84px);
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 1.5px solid var(--ring, var(--forest));
-  background: var(--fill, var(--tint-forest));
+  border: 1.5px solid var(--leaf-bright);
+  background: var(--tint-leaf);
   transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
-}
-.strip__item[data-tone="leaf"] {
-  --ring: var(--leaf-bright);
-  --fill: var(--tint-leaf);
-}
-.strip__item[data-tone="earth"] {
-  --ring: var(--earth-soft);
-  --fill: var(--tint-earth);
 }
 .strip__item:hover .strip__ring {
   transform: translateY(-3px);
@@ -994,8 +985,10 @@ p {
   grid-template-columns: minmax(0, 1fr) minmax(0, 18rem);
   gap: clamp(1.5rem, 4vw, 3.5rem);
   align-items: stretch;
-  padding: clamp(1.5rem, 4vw, 3.5rem);
-  border-radius: calc(var(--radius) * 1.5);
+  --pad: clamp(1.5rem, 4vw, 3.5rem);
+  --inner: max(6px, calc(var(--radius-lg) - var(--pad)));
+  padding: var(--pad);
+  border-radius: var(--radius-lg);
   background: var(--tint-leaf);
 }
 .quote__words {
@@ -1021,21 +1014,12 @@ p {
   line-height: 1;
   color: var(--leaf);
 }
-.quote__by {
-  display: grid;
-  padding-left: clamp(2.5rem, 5vw, 4rem);
-  color: var(--ink-soft);
-}
-.quote__name {
-  font-weight: 600;
-  color: var(--earth);
-}
 .quote .textlink {
   margin-left: clamp(2.5rem, 5vw, 4rem);
 }
 .quote__photo {
   overflow: hidden;
-  border-radius: var(--radius);
+  border-radius: var(--inner);
   min-height: 16rem;
 }
 .quote__photo img {
@@ -1133,11 +1117,23 @@ p {
   border-radius: 50%;
   color: var(--forest);
   cursor: pointer;
-  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease),
+    opacity 0.2s var(--ease), transform 0.15s var(--ease);
 }
 .carousel__btn:hover {
   background: var(--forest);
   color: var(--on-dark);
+}
+.carousel__btn:active {
+  transform: scale(0.94);
+}
+/* At the end of the row the arrow that can go no further fades back. */
+.carousel__btn[aria-disabled="true"] {
+  opacity: 0.35;
+  cursor: default;
+  background: transparent;
+  color: var(--forest);
+  transform: none;
 }
 .carousel__chev {
   width: 0.6rem;
@@ -1215,15 +1211,8 @@ p {
 .pcard:hover .pcard__media .photo {
   transform: scale(1.04);
 }
-.pcard__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.pcard__tag {
-  font-weight: 600;
-  font-size: 0.9375rem;
-  color: var(--leaf);
+.pcard > .icon {
+  justify-self: start;
 }
 .pcard__title {
   font-family: var(--font-display-stack);
@@ -1231,6 +1220,7 @@ p {
   line-height: 1.25;
   min-height: 2.5lh;
   color: var(--forest);
+  text-wrap: balance;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -1293,15 +1283,6 @@ p {
   font-size: 0.875rem;
   color: var(--ink-soft);
 }
-.facts > [data-tone="earth"] {
-  background: var(--tint-earth);
-}
-.facts > [data-tone="forest"] {
-  background: var(--tint-forest);
-}
-.facts > [data-tone="sprout"] {
-  background: var(--tint-sprout);
-}
 .facts dd {
   font-family: var(--font-display-stack);
   font-size: clamp(2.8rem, 5vw, 4.25rem);
@@ -1328,16 +1309,20 @@ p {
   padding-block: clamp(1rem, 3vw, 2rem);
 }
 .band--panel > [data-ground] {
-  padding: clamp(1.25rem, 4vw, 3.5rem);
-  border-radius: calc(var(--radius) * 1.5);
+  --pad: clamp(1.25rem, 4vw, 3.5rem);
+  --inner: max(6px, calc(var(--radius-lg) - var(--pad)));
+  padding: var(--pad);
+  border-radius: var(--radius-lg);
 }
 /* The same split, as a white rounded card inside the page. */
 .band--card {
   padding-block: 0 var(--space);
 }
 .band--card .band__inner {
-  padding: clamp(1.25rem, 4vw, 3.5rem);
-  border-radius: calc(var(--radius) * 1.5);
+  --pad: clamp(1.25rem, 4vw, 3.5rem);
+  --inner: max(6px, calc(var(--radius-lg) - var(--pad)));
+  padding: var(--pad);
+  border-radius: var(--radius-lg);
   background: var(--card);
   box-shadow: 0 1px 0 var(--ink-line), 0 18px 40px var(--shadow);
 }
@@ -1367,7 +1352,7 @@ p {
 }
 .band__photo {
   overflow: hidden;
-  border-radius: 999px 999px var(--radius) var(--radius);
+  border-radius: 999px 999px var(--inner, var(--radius)) var(--inner, var(--radius));
   aspect-ratio: 3 / 5;
   max-height: 600px;
 }
@@ -1396,7 +1381,7 @@ p {
   .band__photo {
     aspect-ratio: 4 / 3;
     max-width: 440px;
-    border-radius: 999px 999px var(--radius) var(--radius) / 70% 70% var(--radius) var(--radius);
+    border-radius: 999px 999px var(--inner, var(--radius)) var(--inner, var(--radius)) / 70% 70% var(--inner, var(--radius)) var(--inner, var(--radius));
   }
 }
 
@@ -1485,10 +1470,9 @@ p {
 }
 .ways__item {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
   align-content: start;
-  align-items: center;
-  gap: 0.9rem 0.75rem;
+  justify-items: start;
+  gap: 0.75rem;
   height: 100%;
   padding: clamp(1.25rem, 2.2vw, 1.75rem);
   background: var(--card);
@@ -1500,9 +1484,9 @@ p {
   font-size: clamp(1.2rem, 1.6vw, 1.4rem);
   line-height: 1.2;
   color: var(--forest);
+  text-wrap: balance;
 }
 .ways__text {
-  grid-column: 1 / -1;
   color: var(--ink-soft);
 }
 a.ways__item {
@@ -1532,10 +1516,12 @@ a.ways__item:hover {
   grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
   align-items: center;
   gap: clamp(2rem, 5vw, 4rem);
-  padding: clamp(2rem, 5vw, 4rem);
+  --pad: clamp(2rem, 5vw, 4rem);
+  --inner: max(6px, calc(var(--radius-lg) - var(--pad)));
+  padding: var(--pad);
   background: var(--forest);
   color: var(--on-dark);
-  border-radius: calc(var(--radius) * 1.5);
+  border-radius: var(--radius-lg);
 }
 .closing__words {
   display: grid;
@@ -1548,7 +1534,7 @@ a.ways__item:hover {
 }
 .closing__form {
   padding: clamp(1.25rem, 3vw, 2rem);
-  border-radius: var(--radius);
+  border-radius: max(var(--radius-sm), var(--inner));
   background: var(--card);
   color: var(--ink);
   box-shadow: 0 18px 40px var(--shadow-strong);
@@ -1675,8 +1661,7 @@ a.ways__item:hover {
 }
 .phero__card {
   padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 5vw, 4rem);
-  border-radius: calc(var(--radius) * 1.5);
-  box-shadow: 0 24px 60px var(--shadow-strong);
+  border-radius: var(--radius-lg);
 }
 .phero__inner {
   display: grid;
@@ -1857,7 +1842,7 @@ a.ways__item:hover {
   grid-template-columns: auto minmax(0, 1fr);
   grid-template-areas:
     "media media"
-    "icon letter"
+    "icon icon"
     "title title"
     "line line";
   grid-template-rows: auto auto auto 1fr;
@@ -1885,23 +1870,13 @@ a.ways__item:hover {
 .pindex__icon {
   grid-area: icon;
 }
-.pindex__letter {
-  grid-area: letter;
-  justify-self: end;
-  font-size: 0.9375rem;
-  font-family: var(--font-ui-stack);
-  font-weight: 600;
-  color: var(--leaf);
-}
-.pindex__letter::before {
-  content: "Programme ";
-}
 .pindex__title {
   grid-area: title;
   font-family: var(--font-display-stack);
   font-size: clamp(1.35rem, 2vw, 1.65rem);
   line-height: 1.2;
   color: var(--forest);
+  text-wrap: balance;
 }
 .pindex__line {
   grid-area: line;
@@ -1952,7 +1927,7 @@ a.ways__item:hover {
 }
 .feature .photo {
   aspect-ratio: 31 / 13;
-  border-radius: calc(var(--radius) * 1.5);
+  border-radius: var(--radius-lg);
 }
 .feature__credit {
   font-size: 0.8125rem;
@@ -2209,6 +2184,91 @@ a.ways__item:hover {
   font-size: 0.9375rem;
   color: var(--ink-soft);
 }
+/* A result rises in when it arrives; a missing field gives a small shake. */
+.form__status[data-state="opened"],
+.form__status[data-state="saved"] {
+  color: var(--leaf-deep);
+  font-weight: 600;
+  animation: status-in 0.35s var(--ease);
+}
+.form__status[data-state="invalid"],
+.form__status[data-state="error"] {
+  color: var(--earth);
+  font-weight: 600;
+  animation: status-shake 0.4s var(--ease);
+}
+@keyframes status-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes status-shake {
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+/* A button at work: a small spinning ring before its words. */
+.button[aria-busy="true"] {
+  gap: 0.6rem;
+  opacity: 0.85;
+}
+.button[aria-busy="true"]::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading placeholders in the shape of the list to come. */
+.skeleton {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 40rem;
+  padding-block: 0.5rem;
+}
+.skeleton__bar {
+  height: 1rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--paper-warm) 25%, var(--tint-forest) 50%, var(--paper-warm) 75%) 0 0 / 300% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+.skeleton__bar:first-of-type {
+  height: 1.5rem;
+  width: 60%;
+}
+.skeleton__bar:last-child {
+  width: 80%;
+}
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 @media (max-width: 640px) {
   .form__grid {
     grid-template-columns: minmax(0, 1fr);
@@ -2316,6 +2376,10 @@ a.contact__way:hover {
   ::after {
     transition-duration: 0.01ms !important;
   }
+  .skeleton__bar,
+  .form__status {
+    animation: none !important;
+  }
 }
 
 /* ---------- phones ---------- */
@@ -2329,8 +2393,10 @@ a.contact__way:hover {
   .band--card .band__inner,
   .band--panel > [data-ground],
   .closing__inner {
-    padding: 1.25rem;
-    border-radius: 20px;
+    --pad: 1.25rem;
+    --inner: 6px;
+    padding: var(--pad);
+    border-radius: var(--radius-lg);
   }
   .phero__card {
     padding-block: 1.5rem 1.75rem;
@@ -2346,9 +2412,6 @@ a.contact__way:hover {
     max-width: none;
     overflow-wrap: anywhere;
   }
-  .lockup__script {
-    font-size: clamp(1.4rem, 7vw, 1.9rem);
-  }
   .phero__aside {
     display: none;
   }
@@ -2361,9 +2424,7 @@ a.contact__way:hover {
     padding-left: 1.75rem;
     font-size: 1.2rem;
   }
-  .quote__by,
   .quote .textlink {
-    padding-left: 0;
     margin-left: 1.75rem;
   }
   .quote__body::before {

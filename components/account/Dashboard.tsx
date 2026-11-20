@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "convex/react";
 import { anyApi } from "convex/server";
 import { useId, useState, type FormEvent } from "react";
 import Publisher from "./Publisher";
+import Skeleton from "@/components/Skeleton";
 
 /* The site's code reaches the Convex functions in convex/profile.ts by name,
    so the static build does not need the generated API types. */
@@ -35,11 +36,7 @@ export default function Dashboard() {
   const { signOut } = useAuthActions();
   const update = useMutation(api.profile.update);
   if (me === undefined) {
-    return (
-      <p className="acard__text" role="status">
-        Loading your profile…
-      </p>
-    );
+    return <Skeleton label="Loading your profile…" lines={4} />;
   }
   if (me === null) {
     return (
@@ -190,10 +187,10 @@ function ProfileForm({
         </div>
       </div>
       <div className="form__foot">
-        <button className="button" type="submit" disabled={state === "saving"}>
+        <button className="button" type="submit" disabled={state === "saving"} aria-busy={state === "saving"}>
           {state === "saving" ? "Saving…" : "Save profile"}
         </button>
-        <p className="form__status" role="status" aria-live="polite">
+        <p className="form__status" data-state={state} role="status" aria-live="polite">
           {state === "saved"
             ? "Saved."
             : state === "error"

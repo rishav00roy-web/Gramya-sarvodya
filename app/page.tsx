@@ -47,6 +47,19 @@ const FACTS = [
   { value: String(APPROACH.length), label: "Steps in our approach" },
 ];
 
+/* A hyphenated word in a heading ("Self-Reliant") never splits at its
+   hyphen across two lines. */
+const keepWords = (text: string) =>
+  text.split(/(\S+-\S+)/).map((part, i) =>
+    i % 2 ? (
+      <span key={i} className="nowrap">
+        {part}
+      </span>
+    ) : (
+      part
+    ),
+  );
+
 export default function Home() {
   return (
     <>
@@ -97,12 +110,8 @@ export default function Home() {
             <blockquote className="quote__body">
               <p>{HOME.body}</p>
             </blockquote>
-            <p className="quote__by">
-              <span className="quote__name">Our philosophy</span>
-              <span>{ORG.philosophy}</span>
-            </p>
             <Link className="textlink" href="/about#philosophy">
-              Read more
+              Read our philosophy
             </Link>
           </div>
           <div className="quote__photo">
@@ -141,7 +150,7 @@ export default function Home() {
       <section className="section shell creed" aria-labelledby="creed-title">
         <div className="creed__words">
           <h2 className="section__title" id="creed-title">
-            {HOME.title}
+            {keepWords(HOME.title)}
           </h2>
           <p className="section__lede">{VISION}</p>
           <Link className="button" href="/about#vision-mission">
@@ -150,11 +159,8 @@ export default function Home() {
         </div>
         <div className="creed__facts">
           <dl className="facts">
-            {FACTS.map((f, i) => (
-              <div
-                key={f.label}
-                data-tone={["leaf", "earth", "forest", "sprout"][i % 4]}
-              >
+            {FACTS.map((f) => (
+              <div key={f.label}>
                 <dt>{f.label}</dt>
                 <dd>{f.value}</dd>
               </div>
@@ -248,7 +254,7 @@ export default function Home() {
                   href={`/get-involved#${w.id}`}
                   data-kubai-trigger
                 >
-                  <Icon name={w.icon} size={34} />
+                  <Icon name={w.icon} size={36} />
                   <span className="ways__title">{w.title}</span>
                   <span className="ways__text">{w.text}</span>
                 </Link>
