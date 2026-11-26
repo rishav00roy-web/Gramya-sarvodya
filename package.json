@@ -1,0 +1,5 @@
+{
+  "name": "gramya-sarvodaya-site",
+  "private": true,
+  "scripts": { "build": "echo Site is prebuilt by GitHub Actions" }
+}
