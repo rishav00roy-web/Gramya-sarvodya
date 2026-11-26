@@ -1,6 +1,7 @@
 # Builds the site on GitHub (Hostinger's build servers can't run Next.js 16)
-# and puts the finished pages on the "hostinger" branch. Hostinger's Git
-# deployment watches that branch and copies it into public_html on every push.
+# and puts the finished pages on the "hostinger" branch, in a site/ folder
+# with an empty package.json. The Hostinger Node.js web app deploys that
+# branch (framework Other, output directory "site") on every push.
 name: Build for Hostinger
 
 on:
@@ -48,7 +49,11 @@ jobs:
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd out
+          mkdir -p publish
+          mv out publish/site
+          cd publish
+          printf '%s\n' '{' '  "name": "gramya-sarvodaya-site",' '  "private": true,' '  "scripts": { "build": "echo Site is prebuilt by GitHub Actions" }' '}' > package.json
+          printf '%s\n' '{' '  "name": "gramya-sarvodaya-site",' '  "lockfileVersion": 3,' '  "requires": true,' '  "packages": { "": { "name": "gramya-sarvodaya-site" } }' '}' > package-lock.json
           git init -q -b hostinger
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
