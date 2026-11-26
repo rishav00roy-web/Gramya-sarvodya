@@ -1,0 +1,57 @@
+# Builds the site on GitHub (Hostinger's build servers can't run Next.js 16)
+# and puts the finished pages on the "hostinger" branch. Hostinger's Git
+# deployment watches that branch and copies it into public_html on every push.
+name: Build for Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hostinger
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Same build as Vercel. Without CONVEX_DEPLOY_KEY it builds the static
+      # site without sign-in; add the keys under Settings > Secrets and
+      # variables > Actions to turn sign-in on.
+      - run: npm run build
+        env:
+          CONVEX_DEPLOY_KEY: ${{ secrets.CONVEX_DEPLOY_KEY }}
+          AUTH_BREVO_KEY: ${{ secrets.AUTH_BREVO_KEY }}
+          AUTH_RESEND_KEY: ${{ secrets.AUTH_RESEND_KEY }}
+          AUTH_EMAIL_FROM: ${{ secrets.AUTH_EMAIL_FROM }}
+          AUTH_GOOGLE_ID: ${{ secrets.AUTH_GOOGLE_ID }}
+          AUTH_GOOGLE_SECRET: ${{ secrets.AUTH_GOOGLE_SECRET }}
+          ADMIN_EMAILS: ${{ secrets.ADMIN_EMAILS }}
+
+      # Show the site's own 404 page on Hostinger.
+      - run: printf 'ErrorDocument 404 /404.html\n' > out/.htaccess
+
+      - name: Publish the built site to the hostinger branch
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd out
+          git init -q -b hostinger
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Built from ${GITHUB_SHA::7}"
+          git push -q --force "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" hostinger
